@@ -1,5 +1,5 @@
 <?php
-//include 'check.php';
+include '../check.php';
 ?>
 
 <!DOCTYPE HTML>
@@ -21,7 +21,7 @@
 
     <div class="container-fluid px-0">
 
-        <?php include 'topnav.php'; ?>
+        <?php include 'admin_topnav.php'; ?>
 
         <!-- container -->
         <div class="container my-3">

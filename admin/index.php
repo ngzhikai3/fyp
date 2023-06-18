@@ -1,5 +1,5 @@
 <?php
-//include 'check.php';
+include '../check.php';
 ?>
 
 <!DOCTYPE html>
@@ -19,10 +19,10 @@
 
 </head>
 
-<body>
+<body class="bg-warning">
 
     <div class="container-fluid px-0">
-        <?php include 'topnav.php'; ?>
+        <?php include 'admin_topnav.php'; ?>
 
         <div class="container-fluid row m-0 pt-5 bg-warning">
             <div class="">

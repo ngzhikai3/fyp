@@ -8,7 +8,7 @@ include '../check.php';
 
 <head>
 
-    <title>Update Student Profile</title>
+    <title>Update Profile</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,23 +22,23 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'stu_topnav.php'; ?>
+        <?php include 'lec_topnav.php'; ?>
 
         <div class="container my-3">
             <div class="page-header">
-                <h1>Update Student Profile</h1>
+                <h1>Update Profile</h1>
             </div>
             <?php
             // get passed parameter value, in this case, the record ID
             // isset() is a PHP function used to verify if a value is there or not
-            $student_id = isset($_GET['student_id']) ? $_GET['student_id'] : die('ERROR: Record ID not found.');
+            $lecture_id = isset($_GET['lecture_id']) ? $_GET['lecture_id'] : die('ERROR: Record ID not found.');
 
             $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'deleted') {
                 echo "<div class='alert alert-success'>Record was deleted.</div>";
             }
             if ($action == 'nodeleted') {
-                echo "<div class='alert alert-danger'>Cannot delete this student.</div>";
+                echo "<div class='alert alert-danger'>Cannot delete this lecture.</div>";
             }
 
             //include database connection
@@ -47,11 +47,11 @@ include '../check.php';
             // read current record's data
             try {
                 // prepare select query
-                $query = "SELECT * FROM student WHERE student_id = ? LIMIT 0,1";
+                $query = "SELECT * FROM lecture WHERE lecture_id = ? LIMIT 0,1";
                 $stmt = $con->prepare($query);
 
                 // this is the first question mark
-                $stmt->bindParam(1, $student_id);
+                $stmt->bindParam(1, $lecture_id);
 
                 // execute our query
                 $stmt->execute();
@@ -60,13 +60,12 @@ include '../check.php';
                 $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
                 // values to fill up our form
-                $student_firstname = $row['student_firstname'];
-                $student_lastname = $row['student_lastname'];
-                $student_password = $row['student_password'];
-                $student_email = $row['student_email'];
-                $student_phone = $row['student_phone'];
-                $student_gender = $row['student_gender'];
-                $date_of_birth = $row['date_of_birth'];
+                $lecture_firstname = $row['lecture_firstname'];
+                $lecture_lastname = $row['lecture_lastname'];
+                $lecture_password = $row['lecture_password'];
+                $lecture_email = $row['lecture_email'];
+                $lecture_phone = $row['lecture_phone'];
+                $lecture_gender = $row['lecture_gender'];
             }
 
             // show error
@@ -79,33 +78,32 @@ include '../check.php';
             // check if form was submitted
             if ($_POST) {
 
-                $student_password = ($_POST['student_password']);
-                $old_student_password = md5($_POST['old_student_password']);
-                $confirm_student_password = ($_POST['confirm_student_password']);
-                $student_firstname = $_POST['student_firstname'];
-                $student_lastname = $_POST['student_lastname'];
-                $student_email = $_POST['student_email'];
-                $student_phone = $_POST['student_phone'];
-                $student_gender = $_POST['student_gender'];
-                $date_of_birth = $_POST['date_of_birth'];
+                $lecture_password = ($_POST['lecture_password']);
+                $old_lecture_password = md5($_POST['old_lecture_password']);
+                $confirm_lecture_password = ($_POST['confirm_lecture_password']);
+                $lecture_firstname = $_POST['lecture_firstname'];
+                $lecture_lastname = $_POST['lecture_lastname'];
+                $lecture_email = $_POST['lecture_email'];
+                $lecture_phone = $_POST['lecture_phone'];
+                $lecture_gender = $_POST['lecture_gender'];
                 $error_message = "";
 
                 $emptypass = false;
-                if ($old_student_password == md5("") && $student_password == "" && $confirm_student_password == "") {
+                if ($old_lecture_password == md5("") && $lecture_password == "" && $confirm_lecture_password == "") {
                     $emptypass = true;
                 } else {
-                    if ($row['student_password'] == $old_student_password) {
-                        if (!preg_match('/[a-z]/', $student_password)) {
+                    if ($row['lecture_password'] == $old_lecture_password) {
+                        if (!preg_match('/[a-z]/', $lecture_password)) {
                             $error_message .= "<div class='alert alert-danger'>Password need include lowercase</div>";
-                        } elseif (!preg_match('/[0-9]/', $student_password)) {
+                        } elseif (!preg_match('/[0-9]/', $lecture_password)) {
                             $error_message .= "<div class='alert alert-danger'>Password need include number</div>";
-                        } elseif (strlen($student_password) < 8) {
+                        } elseif (strlen($lecture_password) < 8) {
                             $error_message .= "<div class='alert alert-danger'>Password need at least 8 charecter</div>";
-                        } elseif ($old_student_password == $student_password) {
+                        } elseif ($old_lecture_password == $lecture_password) {
                             $error_message .= "<div class='alert alert-danger'>New password cannot same with old password</div>";
-                        } elseif ($old_student_password != "" && $student_password != "" && $confirm_student_password == "") {
+                        } elseif ($old_lecture_password != "" && $lecture_password != "" && $confirm_lecture_password == "") {
                             $error_message .= "<div class='alert alert-danger'>Please enter confirm password</div>";
-                        } elseif ($old_student_password != "" && $student_password != "" && $confirm_student_password != "" && $student_password != $confirm_student_password) {
+                        } elseif ($old_lecture_password != "" && $lecture_password != "" && $confirm_lecture_password != "" && $lecture_password != $confirm_lecture_password) {
                             $error_message .= "<div class='alert alert-danger'>confirm password need to same with password</div>";
                         }
                     } else {
@@ -113,34 +111,21 @@ include '../check.php';
                     }
                 }
                 if ($emptypass == true) {
-                    $student_password = $row['student_password'];
+                    $lecture_password = $row['lecture_password'];
                 } else {
-                    $student_password = md5(strip_tags($_POST['student_password']));
+                    $lecture_password = md5(strip_tags($_POST['lecture_password']));
                 }
 
-                if ($student_firstname == "") {
+                if ($lecture_firstname == "") {
                     $error_message .= "<div class='alert alert-danger'>Please enter your first name</div>";
                 }
 
-                if ($student_lastname == "") {
+                if ($lecture_lastname == "") {
                     $error_message .= "<div class='alert alert-danger'>Please enter your last name</div>";
                 }
 
-                if ($student_gender == "") {
+                if ($lecture_gender == "") {
                     $error_message .= "<div class='alert alert-danger'>Please select your gender</div>";
-                }
-
-                if ($date_of_birth == "") {
-                    $error_message .= "<div class='alert alert-danger'>Please select your date of birth</div>";
-                }
-
-                $day = $_POST['date_of_birth'];
-                $today = date("Ymd");
-                $date1 = date_create($day);
-                $date2 = date_create($today);
-                $diff = date_diff($date1, $date2);
-                if ($diff->format("%y") <= "18") {
-                    $error_message .= "<div class='alert alert-danger'>User need 18 years old and above</div>";
                 }
 
                 if (!empty($error_message)) {
@@ -151,38 +136,36 @@ include '../check.php';
                         // write update query
                         // in this case, it seemed like we have so many fields to pass and
                         // it is better to label them and not use question marks
-                        $query = "UPDATE student SET student_firstname=:student_firstname, student_lastname=:student_lastname, student_password=:student_password, student_email=:student_email, student_phone=:student_phone, student_gender=:student_gender, date_of_birth=:date_of_birth WHERE student_id = :student_id";
+                        $query = "UPDATE lecture SET lecture_firstname=:lecture_firstname, lecture_lastname=:lecture_lastname, lecture_password=:lecture_password, lecture_email=:lecture_email, lecture_phone=:lecture_phone, lecture_gender=:lecture_gender WHERE lecture_id = :lecture_id";
                         // prepare query for excecution
                         $stmt = $con->prepare($query);
                         // posted values
-                        $student_firstname = (strip_tags($_POST['student_firstname']));
-                        $student_lastname = (strip_tags($_POST['student_lastname']));
-                        $student_email = (strip_tags($_POST['student_email']));
-                        $student_phone = (strip_tags($_POST['student_phone']));
-                        $student_gender = (strip_tags($_POST['student_gender']));
-                        $date_of_birth = (strip_tags($_POST['date_of_birth']));
+                        $lecture_firstname = (strip_tags($_POST['lecture_firstname']));
+                        $lecture_lastname = (strip_tags($_POST['lecture_lastname']));
+                        $lecture_email = (strip_tags($_POST['lecture_email']));
+                        $lecture_phone = (strip_tags($_POST['lecture_phone']));
+                        $lecture_gender = (strip_tags($_POST['lecture_gender']));
                         // bind the parameters
-                        $stmt->bindParam(':student_firstname', $student_firstname);
-                        $stmt->bindParam(':student_lastname', $student_lastname);
-                        $stmt->bindParam(':student_password', $student_password);
-                        $stmt->bindParam(':student_email', $student_email);
-                        $stmt->bindParam(':student_phone', $student_phone);
-                        $stmt->bindParam(':student_gender', $student_gender);
-                        $stmt->bindParam(':date_of_birth', $date_of_birth);
-                        $stmt->bindParam(':student_id', $student_id);
+                        $stmt->bindParam(':lecture_firstname', $lecture_firstname);
+                        $stmt->bindParam(':lecture_lastname', $lecture_lastname);
+                        $stmt->bindParam(':lecture_password', $lecture_password);
+                        $stmt->bindParam(':lecture_email', $lecture_email);
+                        $stmt->bindParam(':lecture_phone', $lecture_phone);
+                        $stmt->bindParam(':lecture_gender', $lecture_gender);
+                        $stmt->bindParam(':lecture_id', $lecture_id);
                         // Execute the query
                         if ($stmt->execute()) {
                             $query = "UPDATE login 
-                                      SET email = :student_email, password = :student_password 
-                                      WHERE student_id = :student_id";
+                                      SET email = :lecture_email, password = :lecture_password 
+                                      WHERE lecture_id = :lecture_id";
 
                             $stmt = $con->prepare($query);
-                            $stmt->bindParam(':student_email', $student_email);
-                            $stmt->bindParam(':student_password', $student_password);
-                            $stmt->bindParam(':student_id', $student_id);
+                            $stmt->bindParam(':lecture_email', $lecture_email);
+                            $stmt->bindParam(':lecture_password', $lecture_password);
+                            $stmt->bindParam(':lecture_id', $lecture_id);
 
                             if ($stmt->execute()) {
-                                header("Location: stu_profile.php?student_id={$student_id}");
+                                header("Location: lec_profile.php?lecture_id={$lecture_id}");
                             } else {
                                 echo "<div class='alert alert-danger'>Unable to update record. Please try again.</div>";
                             }
@@ -198,50 +181,56 @@ include '../check.php';
             } ?>
 
             <!--we have our html form here where new record information can be updated-->
-            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?student_id={$student_id}"); ?>" method="post" enctype="multipart/form-data">
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?lecture_id={$lecture_id}"); ?>" method="post" enctype="multipart/form-data">
                 <table class='table table-hover table-dark table-responsive table-bordered'>
                     <tr>
                         <td class="text-center">Old Password</td>
-                        <td colspan="3"><input type='password' name='old_student_password' class='form-control' placeholder="Leave blank if no password has been changed" /></td>
+                        <td colspan="3"><input type='password' name='old_lecture_password' class='form-control' placeholder="Leave blank if no password has been changed" /></td>
                     </tr>
                     <tr>
                         <td class="text-center">New Password</td>
-                        <td><input type='password' name='student_password' class='form-control' placeholder="Leave blank if no password has been changed" /></td>
+                        <td><input type='password' name='lecture_password' class='form-control' placeholder="Leave blank if no password has been changed" /></td>
                         <td class="text-center">Confirm Password</td>
-                        <td><input type='password' name='confirm_student_password' class='form-control' placeholder="Leave blank if no password has been changed" /></td>
+                        <td><input type='password' name='confirm_lecture_password' class='form-control' placeholder="Leave blank if no password has been changed" /></td>
                     </tr>
                     <tr>
                         <td class="text-center">First Name</td>
-                        <td><input type='text' name='student_firstname' value="<?php echo htmlspecialchars($student_firstname, ENT_QUOTES);  ?>" class='form-control' /></td>
+                        <td><input type='text' name='lecture_firstname' value="<?php echo htmlspecialchars($lecture_firstname, ENT_QUOTES);  ?>" class='form-control' /></td>
                         <td class="text-center">Last Name</td>
-                        <td><input type='text' name='student_lastname' value="<?php echo htmlspecialchars($student_lastname, ENT_QUOTES);  ?>" class='form-control' /></td>
+                        <td><input type='text' name='lecture_lastname' value="<?php echo htmlspecialchars($lecture_lastname, ENT_QUOTES);  ?>" class='form-control' /></td>
+                    </tr>
+                    <tr>
+                        <td class="text-center">email</td>
+                        <td><input type='text' name='lecture_email' value="<?php echo htmlspecialchars($lecture_email, ENT_QUOTES);  ?>" class='form-control' /></td>
+                        <td class="text-center">Phone</td>
+                        <td><input type='text' name='lecture_phone' value="<?php echo htmlspecialchars($lecture_phone, ENT_QUOTES);  ?>" class='form-control' /></td>
                     </tr>
                     <tr>
                         <td class="text-center">Gender</td>
                         <td>
                             <?php
-                            if ($student_gender == "male") {
+                            if ($lecture_gender == "male") {
                                 echo "<div class='form-check'>
-                                    <input class='form-check-input' type='radio' name='student_gender' value='male' checked>
+                                    <input class='form-check-input' type='radio' name='lecture_gender' value='male' checked>
                                     <label class='form-check-label'>
                                     Male
                                     </label>
                                 </div>
                                 <div class='form-check'>
-                                    <input class='form-check-input' type='radio' name='student_gender' value='female'>
+                                    <input class='form-check-input' type='radio' name='lecture_gender' value='female'>
                                     <label class='form-check-label'>
                                     Female
                                     </label>
                                 </div>";
                             } else {
                                 echo "<div class='form-check'>
-                                        <input class='form-check-input' type='radio' name='student_gender' value='male'>
+                                        <input class='form-check-input' type='radio' name='lecture_gender' value='male'>
                                         <label class='form-check-label'>
                                             Male
                                         </label>
                                     </div>
                                     <div class='form-check'>
-                                        <input class='form-check-input' type='radio' name='student_gender' value='female' checked>
+                                        <input class='form-check-input' type='radio' name='lecture_gender' value='female' checked>
                                         <label class='form-check-label'>
                                             Female
                                         </label>
@@ -249,18 +238,7 @@ include '../check.php';
                             }
                             ?>
                         </td>
-                        <td class="text-center">Date Of Birth</td>
-                        <td><input type='date' name='date_of_birth' value="<?php echo htmlspecialchars($date_of_birth, ENT_QUOTES);  ?>" class='form-control' /></td>
-                    </tr>
-                    <tr>
-                        <td class="text-center">email</td>
-                        <td><input type='text' name='student_email' value="<?php echo htmlspecialchars($student_email, ENT_QUOTES);  ?>" class='form-control' /></td>
-                        <td class="text-center">Phone</td>
-                        <td><input type='text' name='student_phone' value="<?php echo htmlspecialchars($student_phone, ENT_QUOTES);  ?>" class='form-control' /></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="3" class="text-end">
+                        <td colspan="2" class="text-end">
                             <button type='submit' class='btn btn-success'>
                                 <i class="fa-solid fa-floppy-disk"></i>
                             </button>

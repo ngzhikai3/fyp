@@ -7,7 +7,7 @@ include '../check.php';
 
 <head>
 
-    <title>Read Lecture Profile</title>
+    <title>My Course</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,12 +21,12 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'admin_topnav.php'; ?>
+        <?php include 'lec_topnav.php'; ?>
 
         <!-- container -->
         <div class="container my-3">
             <div class="page-header">
-                <h1>Read Lecture Profile</h1>
+                <h1>My Course</h1>
             </div>
 
             <?php
@@ -44,22 +44,21 @@ include '../check.php';
                 echo "<div class='alert alert-success'>Record was deleted.</div>";
             }
             if ($action == 'nodeleted') {
-                echo "<div class='alert alert-danger'>This lecture cannot be delete.</div>";
-            }
-            if ($action == 'self') {
-                echo "<div class='alert alert-danger'>Cannot delete yourself.</div>";
+                echo "<div class='alert alert-danger'>This course cannot be delete.</div>";
             }
 
             // select all data
-            $query = "SELECT * FROM lecture ORDER BY lecture_id DESC";
+            $lecture_id = $_SESSION["lecture_id"];
+            $query = "SELECT * FROM course WHERE lecture_id = ? ORDER BY course_id DESC";
             $stmt = $con->prepare($query);
+            $stmt->bindParam(1, $lecture_id);
             $stmt->execute();
 
             // this is how to get number of rows returned
             $num = $stmt->rowCount();
 
             // link to create record form
-            echo "<a href='create_lec.php' class='btn btn-success m-b-1em my-3'>Create New Lecture</a>";
+            echo "<a href='create_course.php' class='btn btn-success m-b-1em my-3'>Create New course</a>";
 
             //check if more than 0 record found
             if ($num > 0) {
@@ -75,11 +74,9 @@ include '../check.php';
 
             //creating our table heading
             echo "<tr>";
-            echo "<th class='text-center col-1'>Lecture ID</th>";
-            echo "<th class='text-center col-3'>First Name</th>";
-            echo "<th class='text-center col-3'>Last Name</th>";
-            echo "<th class='text-center col-2'>Gender</th>";
-            echo "<th class='text-center col-3'>Action</th>";
+            echo "<th class='text-center col-2'>Course ID</th>";
+            echo "<th class='text-center col-8'>Course Name</th>";
+            echo "<th class='text-center col-2'>Action</th>";
             echo "</tr>";
 
             // table body will be here
@@ -90,23 +87,14 @@ include '../check.php';
                 extract($row);
                 // creating new table row per record
                 echo "<tr>";
-                echo "<td class='col-1 text-center fs-4'>{$lecture_id}</td>";
-                echo "<td class='col-3 text-center text-break fs-4'>{$lecture_firstname}</td>";
-                echo "<td class='col-3 text-center text-break fs-4'>{$lecture_lastname}</td>";
-                if ($lecture_gender == "male") {
-                    echo "<td class='col-2 text-center'><i class='fa-solid fa-person fs-1 text-primary'></i></td>";
-                } else {
-                    echo "<td class='col-2 text-center'><i class='fa-solid fa-person-dress fs-1 text-danger'></i></td>";
-                }
-                echo "<td class='col-3'>";
-                // read one record
-                echo "<a href='lecture_read_one.php?lecture_id={$lecture_id}' class='btn btn-info m-r-1em mx-3'><i class='fa-solid fa-eye'></i></a>";
+                echo "<td class='col-2 text-center fs-4'>{$course_id}</td>";
+                echo "<td class='col-8 text-center text-break fs-4'>{$course_name}</td>";
+                echo "<td class='col-2'>";
+                // we will use this links on next part of this post
+                echo "<a href='lec_edit_course.php?course_id={$course_id}' class='btn btn-primary m-r-1em mx-3'><i class='fa-solid fa-pen-to-square'></i></a>";
 
                 // we will use this links on next part of this post
-                echo "<a href='lecture_update.php?lecture_id={$lecture_id}' class='btn btn-primary m-r-1em mx-3'><i class='fa-solid fa-pen-to-square'></i></a>";
-
-                // we will use this links on next part of this post
-                echo "<a href='#' onclick='delete_lecture({$lecture_id});' class='btn btn-danger mx-3'><i class='fa-solid fa-trash'></a>";
+                echo "<a href='#' onclick='delete_course({$course_id});' class='btn btn-danger mx-3'><i class='fa-solid fa-trash'></a>";
                 echo "</td>";
                 echo "</tr>";
             }
@@ -123,12 +111,12 @@ include '../check.php';
     <!-- confirm delete record will be here -->
     <script type='text/javascript'>
         // confirm record deletion
-        function delete_lecture(lecture_id) {
+        function delete_course(course_id) {
 
             if (confirm('Are you sure?')) {
                 // if user clicked ok,
                 // pass the id to delete.php and execute the delete query
-                window.location = 'lecture_delete.php?lecture_id=' + lecture_id;
+                window.location = 'course_delete.php?course_id=' + course_id;
             }
         }
     </script>

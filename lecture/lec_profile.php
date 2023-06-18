@@ -7,7 +7,7 @@ include '../check.php';
 
 <head>
 
-    <title>Read Lecture Info</title>
+    <title>My Profile</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,25 +21,25 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'admin_topnav.php'; ?>
+        <?php include 'lec_topnav.php'; ?>
 
         <div class="container my-3">
             <div class="page-header">
-                <h1>Read Lecture Profile</h1>
+                <h1>My Profile</h1>
             </div>
 
             <!-- PHP read one record will be here -->
             <?php
             // get passed parameter value, in this case, the record ID
             // isset() is a PHP function used to verify if a value is there or not
-            $lecture_id = isset($_GET['lecture_id']) ? $_GET['lecture_id'] : die('ERROR: Record not found.');
+            $lecture_id = isset($_GET['lecture_id']) ? $_GET['lecture_id'] : die('ERROR: Record Customer not found.');
 
             $action = isset($_GET['action']) ? $_GET['action'] : "";
             if ($action == 'deleted') {
                 echo "<div class='alert alert-success'>Record was deleted.</div>";
             }
             if ($action == 'nodeleted') {
-                echo "<div class='alert alert-danger'>This lecture cannot be delete.</div>";
+                echo "<div class='alert alert-danger'>This customer had order placed so cannot be delete.</div>";
             }
 
             //include database connection
@@ -92,18 +92,14 @@ include '../check.php';
                 </tr>
                 <tr>
                     <td class="text-center col-3">Gender</td>
-                    <td class="text-center col-3" colspan="3"><?php if ($lecture_gender == "male") {
-                            echo "<i class='fa-solid fa-person fs-1 text-primary ms-3'></i>";
-                        } else {
-                            echo "<i class='fa-solid fa-person-dress fs-1 text-danger ms-3'></i>";
-                        } ?></td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td class="text-end" colspan="3">
-                        <?php echo "<a href='lecture_update.php?lecture_id={$lecture_id}' class='btn btn-primary m-r-1em'><i class='fa-solid fa-pen-to-square'></i></a>"; ?>
-                        <a href='lecture_read.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to Lecture Profile</a>
-                        <?php echo "<a href='lecture_delete.php?lecture_id={$lecture_id}' class='btn btn-danger'><i class='fa-solid fa-trash'></i></a>"; ?>
+                    <td class="text-center col-3"><?php if ($lecture_gender == "male") {
+                                                        echo "<i class='fa-solid fa-person fs-1 text-primary ms-3'></i>";
+                                                    } else {
+                                                        echo "<i class='fa-solid fa-person-dress fs-1 text-danger ms-3'></i>";
+                                                    } ?></td>
+                    <td class="text-end" colspan="2">
+                        <?php echo "<a href='lec_update.php?lecture_id={$lecture_id}' class='btn btn-primary m-r-1em'><i class='fa-solid fa-pen-to-square'></i></a>"; ?>
+                        <a href='index.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to Home Page</a>
                     </td>
                 </tr>
             </table>
@@ -112,7 +108,7 @@ include '../check.php';
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-    
+
 </body>
 
 </html>

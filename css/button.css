@@ -46,3 +46,11 @@
     min-width: 196px;
   }
 }
+
+.email-hide {
+  display: none;
+}
+
+.nav-link:hover .email-hide {
+  display: inline;
+}

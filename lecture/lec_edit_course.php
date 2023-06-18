@@ -8,7 +8,7 @@ include '../check.php';
 
 <head>
 
-    <title>Update Course Name</title>
+    <title>Edit Course</title>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -22,11 +22,11 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'admin_topnav.php'; ?>
+        <?php include 'lec_topnav.php'; ?>
 
         <div class="container my-3">
             <div class="page-header">
-                <h1>Update Course Name</h1>
+                <h1>Edit Course</h1>
             </div>
             <?php
             // get passed parameter value, in this case, the record ID
@@ -97,7 +97,7 @@ include '../check.php';
                         $stmt->bindParam(':course_id', $course_id);
                         // Execute the query
                         if ($stmt->execute()) {
-                            header("Location: course_read.php?update={$course_id}");
+                            header("Location: lec_course_list.php?update={$course_id}");
                         } else {
                             echo "<div class='alert alert-danger'>Unable to update record. Please try again.</div>";
                         }
@@ -122,8 +122,7 @@ include '../check.php';
                             <button type='submit' class='btn btn-success'>
                                 <i class="fa-solid fa-floppy-disk"></i>
                             </button>
-                            <a href='course_read.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to course list</a>
-                            <?php echo "<a href='course_delete.php?course_id={$course_id}' class='btn btn-danger m-r-1em'><i class='fa-solid fa-trash'></i></a>"; ?>
+                            <a href='lec_course_list.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to course list</a>
                         </td>
                     </tr>
                 </table>

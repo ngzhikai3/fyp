@@ -21,8 +21,7 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'admin_topnav.php';
-        ?>
+        <?php include 'lec_topnav.php'; ?>
 
         <div class="container my-3 py-2">
             <div class="page-header text-center">
@@ -35,15 +34,11 @@ include '../check.php';
             if ($_POST) {
                 // include database connection
                 $course_name = $_POST['course_name'];
-                $lecture_id = $_POST['lecture_id'];
+                $lecture_id = $_SESSION["lecture_id"];
                 $error_message = "";
 
                 if ($course_name == "") {
                     $error_message .= "<div class='alert alert-danger'>Course name cannot be empty</div>";
-                }
-
-                if ($lecture_id == "Select Lecture") {
-                    $error_message .= "<div class='alert alert-danger'>Please select a lecture for this course</div>";
                 }
 
                 if (!empty($error_message)) {
@@ -81,35 +76,33 @@ include '../check.php';
                         <td class="text-center col-3">Course Name</td>
                         <td><input type='text' name='course_name' value='<?php echo $course_name ?>' class='form-control' /></td>
                     </tr>
+                    <tr>
+                        <td class="text-center col-3">Lecture Name</td>
+                        <?php
+                        include '../config/database.php';
+                        $lecture_id = $_SESSION["lecture_id"];
+                        $query = "SELECT lecture_id, lecture_firstname, lecture_lastname FROM lecture WHERE lecture_id = :lecture_id";
+                        $stmt = $con->prepare($query);
+                        $stmt->bindParam(":lecture_id", $lecture_id);
+                        $stmt->execute();
+                        $lecture = $stmt->fetch(PDO::FETCH_ASSOC);
 
-                    <?php
-                    include '../config/database.php';
-                    echo "  <tr> 
-                        <td class='col-3 text-center'>Lecture</td>
-                        <td class='col-9'>
-                        <select class=\"form-select form-select\" aria-label=\".form-select example\" name=\"lecture_id\">
-                        <option value='Select Lecture' selected>Select Lecture</option>";
-                    $query = "SELECT * FROM lecture ORDER BY lecture_id DESC";
-                    $stmt = $con->prepare($query);
-                    $stmt->execute();
-                    $num = $stmt->rowCount();
-                    if ($num > 0) {
-                    } else {
-                        echo "<div class='alert alert-danger'>No records found.</div>";
-                    }
-                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                        extract($row);
-                        echo "<option value=\"$lecture_id\">$lecture_firstname $lecture_lastname</option>";
-                    }
-                    ?>
-
+                        if ($stmt->rowCount() > 0) {
+                            $lecture_firstname = $lecture['lecture_firstname'];
+                            $lecture_lastname = $lecture['lecture_lastname'];
+                            echo "<td>$lecture_firstname $lecture_lastname</td>";
+                        } else {
+                            echo "<td>Lecture not found</td>";
+                        }
+                        ?>
+                    </tr>
                     <tr>
                         <td></td>
                         <td colspan="3" class="text-end">
                             <button type='submit' class='btn btn-success'>
                                 <i class="fa-solid fa-floppy-disk"></i>
                             </button>
-                            <a href='course_read.php' class='btn btn-secondary'>Go to Course List <i class="fa-sharp fa-solid fa-circle-arrow-right"></i></a>
+                            <a href='lec_course_list.php' class='btn btn-secondary'>Go to Course List <i class="fa-sharp fa-solid fa-circle-arrow-right"></i></a>
                         </td>
                     </tr>
                 </table>
