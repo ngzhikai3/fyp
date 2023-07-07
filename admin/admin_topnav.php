@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg bg-dark">
     <div class="container-fluid">
         <div class="d-flex justify-content-start">
-            <a href="/smsfyp/admin/index.php"><img src="images/logo.png" height="50px"></a>
+            <a href="/smsfyp/admin/index.php"><img src="../images/logo.png" height="80px" width="160px" ></a>
         </div>
         <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

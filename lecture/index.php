@@ -45,6 +45,7 @@ include '../check.php';
 
                 // link to create record form
                 echo "<a href='lec_create_course.php' class='btn btn-success m-b-1em my-3'>Create New course</a>";
+                echo "<h1 class='text-center pb-2'>My Course</h1>";
 
                 //check if more than 0 record found
                 if ($num > 0) {

@@ -62,7 +62,11 @@ include '../check.php';
                         echo "<td class='col-3 text-center text-break'>{$course_name}</td>";
                         echo "<td class='col-2 text-center text-break'>{$student_id}</td>";
                         echo "<td class='col-3 text-center text-break'>{$student_firstname} {$student_lastname}</td>";
-                        echo "<td class='col-2 text-center text-break'>{$grade}</td>";
+                        if ($grade == NULL) {
+                            echo "<td class='col-2 text-center text-break'>Still being assessed</td>";
+                        } else {
+                            echo "<td class='col-2 text-center text-break'>{$grade}</td>";
+                        }
                         echo "</tr>";
                     }
 
