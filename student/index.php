@@ -16,10 +16,11 @@ include '../check.php';
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="../css/searchbar.css" rel="stylesheet" />
+    <link href="../css/background.css" rel="stylesheet" />
 
 </head>
 
-<body class="bg-warning">
+<body>
 
     <div class="container-fluid px-0">
         <?php include 'stu_topnav.php';
@@ -122,9 +123,8 @@ include '../check.php';
                         echo "<table class='table table-hover table-dark table-responsive table-striped table-hover table-bordered'>";
                         echo "<tr>";
                         echo "<th class='text-center col-2 fs-4'>Course ID</th>";
-                        echo "<th class='text-center col-4 fs-4'>Course Name</th>";
-                        echo "<th class='text-center col-4 fs-4'>Lecture Name</th>";
-                        echo "<th class='text-center col-2 fs-4'>Grade</th>";
+                        echo "<th class='text-center col-5 fs-4'>Course Name</th>";
+                        echo "<th class='text-center col-5 fs-4'>Lecture Name</th>";
                         echo "</tr>";
 
                         // Retrieve and display table contents
@@ -134,13 +134,8 @@ include '../check.php';
                             // creating new table row per record
                             echo "<tr>";
                             echo "<td class='col-2 text-center'>{$course_id}</td>";
-                            echo "<td class='col-4 text-center text-break'>{$course_name}</td>";
-                            echo "<td class='col-4 text-center text-break'>{$lecture_firstname} {$lecture_lastname}</td>";
-                            if ($grade == NULL) {
-                                echo "<td class='col-4 text-center text-break'>Coming Soon</td>";
-                            } else {
-                                echo "<td class='col-4 text-center text-break'>{$grade}</td>";
-                            }
+                            echo "<td class='col-5 text-center text-break'>{$course_name}</td>";
+                            echo "<td class='col-5 text-center text-break'>{$lecture_firstname} {$lecture_lastname}</td>";
                             echo "</tr>";
                         }
 

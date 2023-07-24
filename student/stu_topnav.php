@@ -9,7 +9,7 @@
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link text-white fs-4" href="stu_view_course.php" role="button" aria-expanded="false">My Course</a>
+                    <a class="nav-link text-white fs-4" href="stu_view_course.php" role="button" aria-expanded="false">My Results</a>
                 </li>
             </ul>
         </div>

@@ -19,7 +19,7 @@ session_start();
 
 </head>
 
-<body class="bg-warning">
+<body>
 
     <?php
 

@@ -16,16 +16,17 @@ include '../check.php';
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
     <link href="../css/button.css" rel="stylesheet" />
+    <link href="../css/background.css" rel="stylesheet" />
 
 </head>
 
-<body class="bg-warning">
+<body>
 
     <div class="container-fluid px-0">
         <?php include 'lec_topnav.php';
         ?>
 
-        <div class="container-fluid row m-0 pt-5 bg-warning">
+        <div class="container-fluid row m-0 pt-5">
             <div class="mt-3">
                 <?php
                 if (isset($_GET['grading'])) {
@@ -44,8 +45,8 @@ include '../check.php';
                 $num = $stmt->rowCount();
 
                 // link to create record form
-                echo "<a href='lec_create_course.php' class='btn btn-success m-b-1em my-3'>Create New course</a>";
-                echo "<h1 class='text-center pb-2'>My Course</h1>";
+                echo "<div> <h1 class='text-center pb-2'>My Course</h1>
+                <a href='lec_create_course.php' class='btn btn-success m-b-1em my-3'>Create New course</a> </div>";
 
                 //check if more than 0 record found
                 if ($num > 0) {

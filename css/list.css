@@ -1,0 +1,10 @@
+.scroll {
+
+  height: 400px;
+  overflow-y: scroll;
+}
+
+.sticky-header {
+  position: sticky;
+  top: 0;
+}

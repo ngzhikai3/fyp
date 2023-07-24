@@ -14,10 +14,12 @@ include '../check.php';
     <link rel="icon" type="image/x-icon" href="images/icon.png" />
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link href="../css/filtertable.css" rel="stylesheet" />
+    <link href="../css/background.css" rel="stylesheet" />
 
 </head>
 
-<body class="bg-warning">
+<body>
 
     <div class="container-fluid px-0">
 
@@ -48,7 +50,7 @@ include '../check.php';
             }
 
             // select all data
-            $query = "SELECT * FROM course ORDER BY course_id DESC";
+            $query = "SELECT * FROM course ORDER BY course_id";
             $stmt = $con->prepare($query);
             $stmt->execute();
 
@@ -68,7 +70,8 @@ include '../check.php';
             }
 
             //new
-            echo "<table class='table table-hover table-dark table-responsive table-bordered'>"; //start table
+            echo "<input type='text' id='myInput' onkeyup='myFunction()' placeholder='Search using course id'>";
+            echo "<table class='table table-hover table-dark table-responsive table-bordered' id='myTable'>"; //start table
 
             //creating our table heading
             echo "<tr>";
@@ -120,6 +123,30 @@ include '../check.php';
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script>
+        function myFunction() {
+            // Declare variables
+            var input, filter, table, tr, td, i, txtValue;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
 
 </body>
 
