@@ -98,7 +98,7 @@ include '../check.php';
                         $stmt->bindParam(':course_id', $course_id);
                         // Execute the query
                         if ($stmt->execute()) {
-                            header("Location: lec_course_list.php?update={$course_id}");
+                            header("Location: index.php?update={$course_id}");
                         } else {
                             echo "<div class='alert alert-danger'>Unable to update record. Please try again.</div>";
                         }
@@ -123,7 +123,7 @@ include '../check.php';
                             <button type='submit' class='btn btn-success'>
                                 <i class="fa-solid fa-floppy-disk"></i>
                             </button>
-                            <a href='lec_course_list.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to course list</a>
+                            <a href='index.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to Home Page</a>
                         </td>
                     </tr>
                 </table>

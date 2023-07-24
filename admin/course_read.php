@@ -58,7 +58,7 @@ include '../check.php';
             $num = $stmt->rowCount();
 
             // link to create record form
-            echo "<a href='create_course.php' class='btn btn-success m-b-1em my-3'>Create New course</a>";
+            echo "<a href='create_course.php' class='btn btn-success m-b-1em my-3'>Create New Course</a>";
 
             //check if more than 0 record found
             if ($num > 0) {

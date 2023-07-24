@@ -235,8 +235,8 @@ include '../check.php';
                         </td>
                     </tr>
                     <tr>
-                        <td class="text-center">email</td>
-                        <td><input type='text' name='lecture_email' value="<?php echo htmlspecialchars($lecture_email, ENT_QUOTES);  ?>" class='form-control' /></td>
+                        <td class="text-center">Email</td>
+                        <td><input type='text' name='lecture_email' value="<?php echo htmlspecialchars($lecture_email, ENT_QUOTES);  ?>" class='form-control' readonly/></td>
                         <td class="text-center">Phone</td>
                         <td><input type='text' name='lecture_phone' value="<?php echo htmlspecialchars($lecture_phone, ENT_QUOTES);  ?>" class='form-control' /></td>
                     </tr>

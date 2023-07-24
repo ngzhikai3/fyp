@@ -57,7 +57,7 @@ include '../check.php';
                         $stmt->bindParam(':lecture_id', $lecture_id);
                         // Execute the query
                         if ($stmt->execute()) {
-                            header("Location: course_read.php?update={save}");
+                            header("Location: index.php?update={save}");
                         } else {
                             echo "<div class='alert alert-danger'>Unable to save record.</div>";
                         }
@@ -103,7 +103,7 @@ include '../check.php';
                             <button type='submit' class='btn btn-success'>
                                 <i class="fa-solid fa-floppy-disk"></i>
                             </button>
-                            <a href='lec_course_list.php' class='btn btn-secondary'>Go to Course List <i class="fa-sharp fa-solid fa-circle-arrow-right"></i></a>
+                            <a href='index.php' class='btn btn-secondary'><i class="fa-sharp fa-solid fa-circle-arrow-left"></i> Back to Home Page</a>
                         </td>
                     </tr>
                 </table>

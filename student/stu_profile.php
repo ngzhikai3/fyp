@@ -87,7 +87,7 @@ include '../check.php';
                     <td class="text-center col-3"><?php echo htmlspecialchars($student_lastname, ENT_QUOTES);  ?></td>
                 </tr>
                 <tr>
-                    <td class="text-center col-3">email</td>
+                    <td class="text-center col-3">Email</td>
                     <td class="text-center col-3"><?php echo htmlspecialchars($student_email, ENT_QUOTES);  ?></td>
                     <td class="text-center col-3">Phone</td>
                     <td class="text-center col-3"><?php echo htmlspecialchars($student_phone, ENT_QUOTES);  ?></td>

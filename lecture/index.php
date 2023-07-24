@@ -33,6 +33,21 @@ include '../check.php';
                     echo "<div class='alert alert-danger'>No need to grade now.</div>";
                 }
 
+                if (isset($_GET['update'])) {
+                    echo "<div class='alert alert-success'>Record was save.</div>";
+                }
+
+                // delete message prompt will be here
+                $action = isset($_GET['action']) ? $_GET['action'] : "";
+
+                // if it was redirected from delete.php
+                if ($action == 'deleted') {
+                    echo "<div class='alert alert-success'>Record was deleted.</div>";
+                }
+                if ($action == 'nodeleted') {
+                    echo "<div class='alert alert-danger'>This course cannot be delete.</div>";
+                }
+
                 include '../config/database.php';
 
                 $lecture_id = $_SESSION["lecture_id"];
@@ -46,7 +61,7 @@ include '../check.php';
 
                 // link to create record form
                 echo "<div> <h1 class='text-center pb-2'>My Course</h1>
-                <a href='lec_create_course.php' class='btn btn-success m-b-1em my-3'>Create New course</a> </div>";
+                <a href='lec_create_course.php' class='btn btn-success m-b-1em my-3'>Create New Course</a> </div>";
 
                 //check if more than 0 record found
                 if ($num > 0) {
@@ -91,6 +106,19 @@ include '../check.php';
                 echo "</table>";
                 ?>
             </div>
+
+            <!-- confirm delete record will be here -->
+            <script type='text/javascript'>
+                // confirm record deletion
+                function delete_course(course_id) {
+
+                    if (confirm('Are you sure?')) {
+                        // if user clicked ok,
+                        // pass the id to delete.php and execute the delete query
+                        window.location = 'lecture_delete.php?course_id=' + course_id;
+                    }
+                }
+            </script>
 
             <script>
                 function redirectToJoinCourse(course_id) {

@@ -16,7 +16,7 @@
 
         <div class="d-none d-lg-block d-xl-block d-xxl-block px-3">
             <div class="text-dark text-center bg-light px-2 rounded-3">
-                <?php echo $_SESSION["login"]; ?>
+                <strong><?php echo $_SESSION["login"]; ?></strong>
             </div>
             <div class="d-flex justify-content-between mt-2">
                 <a class="nav-link text-dark p-2 px-3 rounded-3 bg-light" href="stu_profile.php?student_id=<?php echo $_SESSION["student_id"]; ?>"><i class="fa-solid fa-user"></i></a>

@@ -185,10 +185,10 @@ include '../check.php';
                             if ($stmt->execute()) {
                                 header("Location: stu_profile.php?student_id={$student_id}");
                             } else {
-                                echo "<div class='alert alert-danger'>Unable to update record. Please try again.</div>";
+                                echo "<div class='alert alert-danger'>Unable to update your profile. Please try again.</div>";
                             }
                         } else {
-                            echo "<div class='alert alert-danger'>Unable to update lecture record. Please try again.</div>";
+                            echo "<div class='alert alert-danger'>Unable to update your profile. Please try again.</div>";
                         }
                     }
                     // show errors
@@ -254,8 +254,8 @@ include '../check.php';
                         <td><input type='date' name='date_of_birth' value="<?php echo htmlspecialchars($date_of_birth, ENT_QUOTES);  ?>" class='form-control' /></td>
                     </tr>
                     <tr>
-                        <td class="text-center">email</td>
-                        <td><input type='text' name='student_email' value="<?php echo htmlspecialchars($student_email, ENT_QUOTES);  ?>" class='form-control' /></td>
+                        <td class="text-center">Email</td>
+                        <td><input type='text' name='student_email' value="<?php echo htmlspecialchars($student_email, ENT_QUOTES);  ?>" class='form-control' readonly/></td>
                         <td class="text-center">Phone</td>
                         <td><input type='text' name='student_phone' value="<?php echo htmlspecialchars($student_phone, ENT_QUOTES);  ?>" class='form-control' /></td>
                     </tr>
