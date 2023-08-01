@@ -50,7 +50,7 @@ include '../check.php';
             }
 
             // select all data
-            $query = "SELECT * FROM course ORDER BY course_id";
+            $query = "SELECT * FROM course INNER JOIN lecture ON course.lecture_id = lecture.lecture_id ORDER BY course_id;";
             $stmt = $con->prepare($query);
             $stmt->execute();
 
@@ -76,7 +76,8 @@ include '../check.php';
             //creating our table heading
             echo "<tr>";
             echo "<th class='text-center col-2'>Course ID</th>";
-            echo "<th class='text-center col-8'>Course Name</th>";
+            echo "<th class='text-center col-4'>Course Name</th>";
+            echo "<th class='text-center col-4'>Lecture</th>";
             echo "<th class='text-center col-2'>Action</th>";
             echo "</tr>";
 
@@ -89,7 +90,8 @@ include '../check.php';
                 // creating new table row per record
                 echo "<tr>";
                 echo "<td class='col-2 text-center fs-4'>{$course_id}</td>";
-                echo "<td class='col-8 text-center text-break fs-4'>{$course_name}</td>";
+                echo "<td class='col-4 text-break fs-4'>{$course_name}</td>";
+                echo "<td class='col-4 text-break fs-4'>{$lecture_firstname} {$lecture_lastname}</td>";
                 echo "<td class='col-2'>";
                 // we will use this links on next part of this post
                 echo "<a href='course_update.php?course_id={$course_id}' class='btn btn-primary m-r-1em mx-3'><i class='fa-solid fa-pen-to-square'></i></a>";

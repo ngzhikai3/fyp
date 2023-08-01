@@ -111,7 +111,7 @@ include '../check.php';
                         <td><input type='password' name='confirm_lecture_password' class='form-control' /></td>
                     </tr>
                     <tr>
-                        <td class="text-center col-3">email</td>
+                        <td class="text-center col-3">Email</td>
                         <td><input type='email' name='lecture_email' value='<?php echo $lecture_email ?>' class='form-control' /></td>
                         <td class="text-center col-3">Phone number</td>
                         <td><input type='tel' name='lecture_phone' value='<?php echo $lecture_phone ?>' class='form-control' pattern="[0-9]{3}-[0-9]{7-8}"/></td>

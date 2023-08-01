@@ -146,7 +146,7 @@ include '../check.php';
                             echo "<td class='col-4 text-center text-break'>{$course_name}</td>";
                             echo "<td class='col-4 text-center text-break'>{$lecture_firstname} {$lecture_lastname}</td>";
                             if ($grade == NULL) {
-                                echo "<td class='col-4 text-center text-break'>Coming Soon</td>";
+                                echo "<td class='col-4 text-center text-break'>Pending</td>";
                             } else {
                                 echo "<td class='col-4 text-center text-break'>{$grade}</td>";
                             }

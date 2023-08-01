@@ -54,7 +54,7 @@ include '../check.php';
                     $query = $_GET['query'];
 
                     // Prepare the search query
-                    $stmt = $con->prepare("SELECT * FROM course INNER JOIN lecture ON course.lecture_id = lecture.lecture_id WHERE course_name LIKE :query");
+                    $stmt = $con->prepare("SELECT * FROM course INNER JOIN lecture ON course.lecture_id = lecture.lecture_id WHERE course_name LIKE :query OR course_id LIKE :query OR lecture_firstname LIKE :query OR lecture_lastname LIKE :query");
 
                     // Bind the search query parameter
                     $stmt->bindValue(':query', '%' . $query . '%', PDO::PARAM_STR);
@@ -72,6 +72,7 @@ include '../check.php';
                         <table class='table table-dark table-striped table-hover table-bordered border-secondary'>
                                 <thead>
                                     <tr class='table table-dark'>
+                                        <th class='text-center fs-4'>Course Id</th>
                                         <th class='text-center fs-4'>Course Name</th>
                                         <th class='text-center fs-4'>Lecture Name</th>
                                         <th class='text-center fs-4'>Action</th>
@@ -85,6 +86,7 @@ include '../check.php';
                             $lecture_lastname = $result['lecture_lastname'];
 
                             echo "<tr> 
+                                    <td class='text-center'>" . $result['course_id'] . "</td>
                                     <td class='text-center'>" . $result['course_name'] . "</td>
                                     <td class='text-center'>" . $result['lecture_firstname'] . ' ' . $result['lecture_lastname'] . "</td>
                                     <td class='text-center'>
@@ -96,7 +98,7 @@ include '../check.php';
                         echo "</tbody>
                               </table>";
                     } else {
-                        echo "No results found.";
+                        echo "<div class='alert alert-danger'>No results found.</div>";
                     }
                 }
 

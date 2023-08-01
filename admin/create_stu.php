@@ -124,7 +124,7 @@ include '../check.php';
                         <td><input type='password' name='confirm_student_password' class='form-control' /></td>
                     </tr>
                     <tr>
-                        <td class="text-center col-3">email</td>
+                        <td class="text-center col-3">Email</td>
                         <td><input type='email' name='student_email' value='<?php echo $student_email ?>' class='form-control' /></td>
                         <td class="text-center col-3">Phone number</td>
                         <td><input type='tel' name='student_phone' value='<?php echo $student_phone ?>' class='form-control' pattern="[0-9]{3}-[0-9]{7-8}"/></td>
@@ -146,7 +146,7 @@ include '../check.php';
                             </div>
                         </td>
                         <td class="text-center col-3">Date Of Birth</td>
-                        <td colspan="3"><input type='date' name='date_of_birth' value='<?php echo $date_of_birth ?>' class='form-control' /></td>
+                        <td><input type='date' name='date_of_birth' value='<?php echo $date_of_birth ?>' class='form-control'/></td>
                     </tr>
                     <tr>
                         <td></td>
