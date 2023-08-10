@@ -154,7 +154,7 @@ include '../check.php';
                             <button type='submit' class='btn btn-success'>
                                 <i class="fa-solid fa-floppy-disk"></i>
                             </button>
-                            <a href='student_read.php' class='btn btn-secondary'>Go to Student Profile <i class="fa-sharp fa-solid fa-circle-arrow-right"></i></a>
+                            <a href='student_read.php' class='btn btn-secondary'>Go to Student List <i class="fa-sharp fa-solid fa-circle-arrow-right"></i></a>
                         </td>
                     </tr>
                 </table>
