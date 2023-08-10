@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Jun 18, 2023 at 04:13 PM
+-- Generation Time: Aug 10, 2023 at 10:45 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `lecture_id` int(255) DEFAULT NULL,
   PRIMARY KEY (`course_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=48 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `course`
@@ -86,7 +86,9 @@ INSERT INTO `course` (`course_id`, `course_name`, `lecture_id`) VALUES
 (43, 'Mathematics', 4),
 (44, 'Programming Concepts', 2),
 (45, 'Advance Chinese Language', 6),
-(47, 'NBA', 1);
+(47, 'NBA', 1),
+(52, 'Swimming', 1),
+(53, 'FYP', 1);
 
 -- --------------------------------------------------------
 
@@ -114,36 +116,36 @@ CREATE TABLE IF NOT EXISTS `lecture` (
 
 INSERT INTO `lecture` (`lecture_id`, `lecture_firstname`, `lecture_lastname`, `lecture_password`, `lecture_email`, `lecture_phone`, `lecture_gender`, `user_type`, `lecture_entrytime`) VALUES
 (1, 'Lebron', 'James', '74ba550c7af8a887987484fb67fa4481', 'james@gmail.com', '012-2233223', 'male', 'lecture', '2023-06-09 05:24:58'),
-(2, 'John', 'Smith', 'password_1', 'johnsmith@gmail.com', '1234567891', 'male', 'lecture', '2023-06-15 05:16:56'),
-(3, 'Emily', 'Johnson', 'password_2', 'emilyjohnson@gmail.com', '1234567892', 'female', 'lecture', '2023-06-15 05:16:56'),
-(4, 'Michael', 'Williams', 'password_3', 'michaelwilliams@gmail.com', '1234567893', 'male', 'lecture', '2023-06-15 05:16:56'),
-(5, 'Olivia', 'Brown', 'password_4', 'oliviabrown@gmail.com', '1234567894', 'female', 'lecture', '2023-06-15 05:16:56'),
-(6, 'David', 'Jones', 'password_5', 'davidjones@gmail.com', '1234567895', 'male', 'lecture', '2023-06-15 05:16:56'),
-(7, 'Emma', 'Davis', 'password_6', 'emmadavis@gmail.com', '1234567896', 'female', 'lecture', '2023-06-15 05:16:56'),
-(8, 'Daniel', 'Taylor', 'password_7', 'danieltaylor@gmail.com', '1234567897', 'male', 'lecture', '2023-06-15 05:16:56'),
-(9, 'Sophia', 'Anderson', 'password_8', 'sophiaanderson@gmail.com', '1234567898', 'female', 'lecture', '2023-06-15 05:16:56'),
-(10, 'Joseph', 'Martinez', 'password_9', 'josephmartinez@gmail.com', '1234567899', 'male', 'lecture', '2023-06-15 05:16:56'),
-(11, 'Abigail', 'Harris', 'password_10', 'abigailharris@gmail.com', '1234567810', 'female', 'lecture', '2023-06-15 05:16:56'),
-(12, 'Alexander', 'Clark', 'password_11', 'alexanderclark@gmail.com', '1234567811', 'male', 'lecture', '2023-06-15 05:16:56'),
-(13, 'Mia', 'Lewis', 'password_12', 'mialewis@gmail.com', '1234567812', 'female', 'lecture', '2023-06-15 05:16:56'),
-(14, 'William', 'Lee', 'password_13', 'williamlee@gmail.com', '1234567813', 'male', 'lecture', '2023-06-15 05:16:56'),
-(15, 'Samantha', 'Walker', 'password_14', 'samanthawalker@gmail.com', '1234567814', 'female', 'lecture', '2023-06-15 05:16:56'),
-(16, 'James', 'Hall', 'password_15', 'jameshall@gmail.com', '1234567815', 'male', 'lecture', '2023-06-15 05:16:56'),
-(17, 'Ava', 'Turner', 'password_16', 'avaturner@gmail.com', '1234567816', 'female', 'lecture', '2023-06-15 05:16:56'),
-(18, 'Benjamin', 'Adams', 'password_17', 'benjaminadams@gmail.com', '1234567817', 'male', 'lecture', '2023-06-15 05:16:56'),
-(19, 'Charlotte', 'Nelson', 'password_18', 'charlottenelson@gmail.com', '1234567818', 'female', 'lecture', '2023-06-15 05:16:56'),
-(20, 'Henry', 'Roberts', 'password_19', 'henryroberts@gmail.com', '1234567819', 'male', 'lecture', '2023-06-15 05:16:56'),
-(21, 'Grace', 'Parker', 'password_20', 'graceparker@gmail.com', '1234567820', 'female', 'lecture', '2023-06-15 05:16:56'),
-(22, 'Josephine', 'Cook', 'password_21', 'josephinecook@gmail.com', '1234567821', 'female', 'lecture', '2023-06-15 05:16:56'),
-(23, 'Andrew', 'Hill', 'password_22', 'andrewhill@gmail.com', '1234567822', 'male', 'lecture', '2023-06-15 05:16:56'),
-(24, 'Madison', 'Bell', 'password_23', 'madisonbell@gmail.com', '1234567823', 'female', 'lecture', '2023-06-15 05:16:56'),
-(25, 'Samuel', 'Murphy', 'password_24', 'samuelmurphy@gmail.com', '1234567824', 'male', 'lecture', '2023-06-15 05:16:56'),
-(26, 'Lily', 'Russell', 'password_25', 'lilyrussell@gmail.com', '1234567825', 'female', 'lecture', '2023-06-15 05:16:56'),
-(27, 'Gabriel', 'Ward', 'password_26', 'gabrielward@gmail.com', '1234567826', 'male', 'lecture', '2023-06-15 05:16:56'),
-(28, 'Victoria', 'Reed', 'password_27', 'victoriareed@gmail.com', '1234567827', 'female', 'lecture', '2023-06-15 05:16:56'),
-(29, 'Daniel', 'Baker', 'password_28', 'danielbaker@gmail.com', '1234567828', 'male', 'lecture', '2023-06-15 05:16:56'),
-(30, 'Elizabeth', 'Ross', 'password_29', 'elizabethross@gmail.com', '1234567829', 'female', 'lecture', '2023-06-15 05:16:56'),
-(31, 'Christopher', 'Young', 'password_30', 'christopheryoung@gmail.com', '1234567830', 'male', 'lecture', '2023-06-15 05:16:56');
+(2, 'John', 'Smith', '55deb7fd23a25aa863fb912ff7fc21d8', 'johnsmith@gmail.com', '1234567891', 'male', 'lecture', '2023-06-15 05:16:56'),
+(3, 'Emily', 'Johnson', '55deb7fd23a25aa863fb912ff7fc21d8', 'emilyjohnson@gmail.com', '1234567892', 'female', 'lecture', '2023-06-15 05:16:56'),
+(4, 'Michael', 'Williams', '55deb7fd23a25aa863fb912ff7fc21d8', 'michaelwilliams@gmail.com', '1234567893', 'male', 'lecture', '2023-06-15 05:16:56'),
+(5, 'Olivia', 'Brown', '55deb7fd23a25aa863fb912ff7fc21d8', 'oliviabrown@gmail.com', '019-2235623', 'female', 'lecture', '2023-06-15 05:16:56'),
+(6, 'David', 'Jones', '55deb7fd23a25aa863fb912ff7fc21d8', 'davidjones@gmail.com', '1234567895', 'male', 'lecture', '2023-06-15 05:16:56'),
+(7, 'Emma', 'Davis', '55deb7fd23a25aa863fb912ff7fc21d8', 'emmadavis@gmail.com', '1234567896', 'female', 'lecture', '2023-06-15 05:16:56'),
+(8, 'Daniel', 'Taylor', '55deb7fd23a25aa863fb912ff7fc21d8', 'danieltaylor@gmail.com', '1234567897', 'male', 'lecture', '2023-06-15 05:16:56'),
+(9, 'Sophia', 'Anderson', '55deb7fd23a25aa863fb912ff7fc21d8', 'sophiaanderson@gmail.com', '1234567898', 'female', 'lecture', '2023-06-15 05:16:56'),
+(10, 'Joseph', 'Martinez', '55deb7fd23a25aa863fb912ff7fc21d8', 'josephmartinez@gmail.com', '1234567899', 'male', 'lecture', '2023-06-15 05:16:56'),
+(11, 'Abigail', 'Harris', '55deb7fd23a25aa863fb912ff7fc21d8', 'abigailharris@gmail.com', '1234567810', 'female', 'lecture', '2023-06-15 05:16:56'),
+(12, 'Alexander', 'Clark', '55deb7fd23a25aa863fb912ff7fc21d8', 'alexanderclark@gmail.com', '1234567811', 'male', 'lecture', '2023-06-15 05:16:56'),
+(13, 'Mia', 'Lewis', '55deb7fd23a25aa863fb912ff7fc21d8', 'mialewis@gmail.com', '1234567812', 'female', 'lecture', '2023-06-15 05:16:56'),
+(14, 'William', 'Lee', '55deb7fd23a25aa863fb912ff7fc21d8', 'williamlee@gmail.com', '1234567813', 'male', 'lecture', '2023-06-15 05:16:56'),
+(15, 'Samantha', 'Walker', '55deb7fd23a25aa863fb912ff7fc21d8', 'samanthawalker@gmail.com', '1234567814', 'female', 'lecture', '2023-06-15 05:16:56'),
+(16, 'James', 'Hall', '55deb7fd23a25aa863fb912ff7fc21d8', 'jameshall@gmail.com', '1234567815', 'male', 'lecture', '2023-06-15 05:16:56'),
+(17, 'Ava', 'Turner', '55deb7fd23a25aa863fb912ff7fc21d8', 'avaturner@gmail.com', '1234567816', 'female', 'lecture', '2023-06-15 05:16:56'),
+(18, 'Benjamin', 'Adams', '55deb7fd23a25aa863fb912ff7fc21d8', 'benjaminadams@gmail.com', '1234567817', 'male', 'lecture', '2023-06-15 05:16:56'),
+(19, 'Charlotte', 'Nelson', '55deb7fd23a25aa863fb912ff7fc21d8', 'charlottenelson@gmail.com', '1234567818', 'female', 'lecture', '2023-06-15 05:16:56'),
+(20, 'Henry', 'Roberts', '55deb7fd23a25aa863fb912ff7fc21d8', 'henryroberts@gmail.com', '1234567819', 'male', 'lecture', '2023-06-15 05:16:56'),
+(21, 'Grace', 'Parker', '55deb7fd23a25aa863fb912ff7fc21d8', 'graceparker@gmail.com', '1234567820', 'female', 'lecture', '2023-06-15 05:16:56'),
+(22, 'Josephine', 'Cook', '55deb7fd23a25aa863fb912ff7fc21d8', 'josephinecook@gmail.com', '1234567821', 'female', 'lecture', '2023-06-15 05:16:56'),
+(23, 'Andrew', 'Hill', '55deb7fd23a25aa863fb912ff7fc21d8', 'andrewhill@gmail.com', '1234567822', 'male', 'lecture', '2023-06-15 05:16:56'),
+(24, 'Madison', 'Bell', '55deb7fd23a25aa863fb912ff7fc21d8', 'madisonbell@gmail.com', '1234567823', 'female', 'lecture', '2023-06-15 05:16:56'),
+(25, 'Samuel', 'Murphy', '55deb7fd23a25aa863fb912ff7fc21d8', 'samuelmurphy@gmail.com', '1234567824', 'male', 'lecture', '2023-06-15 05:16:56'),
+(26, 'Lily', 'Russell', '55deb7fd23a25aa863fb912ff7fc21d8', 'lilyrussell@gmail.com', '1234567825', 'female', 'lecture', '2023-06-15 05:16:56'),
+(27, 'Gabriel', 'Ward', '55deb7fd23a25aa863fb912ff7fc21d8', 'gabrielward@gmail.com', '1234567826', 'male', 'lecture', '2023-06-15 05:16:56'),
+(28, 'Victoria', 'Reed', '55deb7fd23a25aa863fb912ff7fc21d8', 'victoriareed@gmail.com', '1234567827', 'female', 'lecture', '2023-06-15 05:16:56'),
+(29, 'Daniel', 'Baker', '55deb7fd23a25aa863fb912ff7fc21d8', 'danielbaker@gmail.com', '1234567828', 'male', 'lecture', '2023-06-15 05:16:56'),
+(30, 'Elizabeth', 'Ross', '55deb7fd23a25aa863fb912ff7fc21d8', 'elizabethross@gmail.com', '1234567829', 'female', 'lecture', '2023-06-15 05:16:56'),
+(31, 'Christopher', 'Young', '55deb7fd23a25aa863fb912ff7fc21d8', 'christopheryoung@gmail.com', '1234567830', 'male', 'lecture', '2023-06-15 05:16:56');
 
 -- --------------------------------------------------------
 
@@ -162,7 +164,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   PRIMARY KEY (`login_id`),
   KEY `student_id` (`student_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=69 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `login`
@@ -203,37 +205,38 @@ INSERT INTO `login` (`login_id`, `email`, `password`, `role`, `student_id`, `lec
 (33, 'christopheryoung@gmail.com', '722dbdbcdb464911233308733930b2fb', 'student', 35, NULL),
 (34, 'Create@gmail.com', '7ad64826b33f0ce5132aa6d622c712c1', 'student', 36, NULL),
 (35, 'james@gmail.com', '74ba550c7af8a887987484fb67fa4481', 'lecture', NULL, 1),
-(36, 'johnsmith@gmail.com', 'password_1', 'lecture', NULL, 2),
-(37, 'emilyjohnson@gmail.com', 'password_2', 'lecture', NULL, 3),
-(38, 'michaelwilliams@gmail.com', 'password_3', 'lecture', NULL, 4),
-(39, 'oliviabrown@gmail.com', 'password_4', 'lecture', NULL, 5),
-(40, 'davidjones@gmail.com', 'password_5', 'lecture', NULL, 6),
-(41, 'emmadavis@gmail.com', 'password_6', 'lecture', NULL, 7),
-(42, 'danieltaylor@gmail.com', 'password_7', 'lecture', NULL, 8),
-(43, 'sophiaanderson@gmail.com', 'password_8', 'lecture', NULL, 9),
-(44, 'josephmartinez@gmail.com', 'password_9', 'lecture', NULL, 10),
-(45, 'abigailharris@gmail.com', 'password_10', 'lecture', NULL, 11),
-(46, 'alexanderclark@gmail.com', 'password_11', 'lecture', NULL, 12),
-(47, 'mialewis@gmail.com', 'password_12', 'lecture', NULL, 13),
-(48, 'williamlee@gmail.com', 'password_13', 'lecture', NULL, 14),
-(49, 'samanthawalker@gmail.com', 'password_14', 'lecture', NULL, 15),
-(50, 'jameshall@gmail.com', 'password_15', 'lecture', NULL, 16),
-(51, 'avaturner@gmail.com', 'password_16', 'lecture', NULL, 17),
-(52, 'benjaminadams@gmail.com', 'password_17', 'lecture', NULL, 18),
-(53, 'charlottenelson@gmail.com', 'password_18', 'lecture', NULL, 19),
-(54, 'henryroberts@gmail.com', 'password_19', 'lecture', NULL, 20),
-(55, 'graceparker@gmail.com', 'password_20', 'lecture', NULL, 21),
-(56, 'josephinecook@gmail.com', 'password_21', 'lecture', NULL, 22),
-(57, 'andrewhill@gmail.com', 'password_22', 'lecture', NULL, 23),
-(58, 'madisonbell@gmail.com', 'password_23', 'lecture', NULL, 24),
-(59, 'samuelmurphy@gmail.com', 'password_24', 'lecture', NULL, 25),
-(60, 'lilyrussell@gmail.com', 'password_25', 'lecture', NULL, 26),
-(61, 'gabrielward@gmail.com', 'password_26', 'lecture', NULL, 27),
-(62, 'victoriareed@gmail.com', 'password_27', 'lecture', NULL, 28),
-(63, 'danielbaker@gmail.com', 'password_28', 'lecture', NULL, 29),
-(64, 'elizabethross@gmail.com', 'password_29', 'lecture', NULL, 30),
-(65, 'christopheryoung@gmail.com', 'password_30', 'lecture', NULL, 31),
-(0, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin', NULL, NULL);
+(36, 'johnsmith@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 2),
+(37, 'emilyjohnson@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 3),
+(38, 'michaelwilliams@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 4),
+(39, 'oliviabrown@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 5),
+(40, 'davidjones@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 6),
+(41, 'emmadavis@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 7),
+(42, 'danieltaylor@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 8),
+(43, 'sophiaanderson@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 9),
+(44, 'josephmartinez@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 10),
+(45, 'abigailharris@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 11),
+(46, 'alexanderclark@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 12),
+(47, 'mialewis@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 13),
+(48, 'williamlee@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 14),
+(49, 'samanthawalker@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 15),
+(50, 'jameshall@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 16),
+(51, 'avaturner@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 17),
+(52, 'benjaminadams@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 18),
+(53, 'charlottenelson@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 19),
+(54, 'henryroberts@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 20),
+(55, 'graceparker@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 21),
+(56, 'josephinecook@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 22),
+(57, 'andrewhill@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 23),
+(58, 'madisonbell@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 24),
+(59, 'samuelmurphy@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 25),
+(60, 'lilyrussell@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 26),
+(61, 'gabrielward@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 27),
+(62, 'victoriareed@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 28),
+(63, 'danielbaker@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 29),
+(64, 'elizabethross@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 30),
+(65, 'christopheryoung@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 31),
+(0, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin', NULL, NULL),
+(69, 'hallo@gmail.com', '10b43971a8295f3720f38fbcdd9d6ac6', 'student', 37, NULL);
 
 -- --------------------------------------------------------
 
@@ -254,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `user_type` varchar(50) NOT NULL,
   `student_entrytime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`student_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
@@ -292,7 +295,8 @@ INSERT INTO `student` (`student_id`, `student_firstname`, `student_lastname`, `s
 (32, 'Victoria', 'Reed', 'ae1c6a778347ad3a62c82a44b785cffe', 'victoriareed@gmail.com', '1234567827', 'female', '2002-03-01', 'student', '2023-06-15 05:50:38'),
 (33, 'Daniel', 'Baker', 'd7a5b8bcb37838d43e11ed8c1e09c51b', 'danielbaker@gmail.com', '1234567828', 'male', '2002-04-01', 'student', '2023-06-15 05:50:38'),
 (34, 'Elizabeth', 'Ross', 'baae88f95fd94f89d4e55f87b7f8b4ff', 'elizabethross@gmail.com', '1234567829', 'female', '2002-05-01', 'student', '2023-06-15 05:50:38'),
-(35, 'Christopher', 'Young', '722dbdbcdb464911233308733930b2fb', 'christopheryoung@gmail.com', '1234567830', 'male', '2002-06-01', 'student', '2023-06-15 05:50:38');
+(35, 'Christopher', 'Young', '722dbdbcdb464911233308733930b2fb', 'christopheryoung@gmail.com', '1234567830', 'male', '2002-06-01', 'student', '2023-06-15 05:50:38'),
+(37, 'hallo', 'hi', '10b43971a8295f3720f38fbcdd9d6ac6', 'hallo@gmail.com', '0122323332', 'male', '1999-11-11', 'student', '2023-06-21 11:16:18');
 
 --
 -- Triggers `student`
@@ -324,7 +328,7 @@ CREATE TABLE IF NOT EXISTS `student_course` (
   KEY `student_id` (`student_id`),
   KEY `course_id` (`course_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student_course`
@@ -334,7 +338,14 @@ INSERT INTO `student_course` (`student_course_id`, `student_id`, `course_id`, `l
 (1, 1, 3, 3, NULL, '2023-06-18 12:15:55'),
 (2, 1, 19, 19, NULL, '2023-06-18 12:16:01'),
 (3, 1, 6, 6, NULL, '2023-06-18 12:44:19'),
-(4, 1, 1, 1, 'B', '2023-06-18 15:13:57');
+(4, 1, 1, 1, 'B', '2023-06-18 15:13:57'),
+(5, 1, 21, 21, NULL, '2023-06-21 11:11:07'),
+(10, 1, 40, 1, 'A', '2023-07-07 07:35:33'),
+(9, 37, 34, 1, 'F', '2023-06-21 11:17:08'),
+(11, 1, 34, 1, 'B', '2023-07-07 07:35:42'),
+(12, 1, 16, 16, NULL, '2023-07-22 10:34:03'),
+(13, 1, 52, 1, 'A+', '2023-07-24 14:38:42'),
+(14, 1, 53, 1, NULL, '2023-08-01 14:07:57');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
