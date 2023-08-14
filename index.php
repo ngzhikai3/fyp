@@ -82,7 +82,7 @@ session_start();
 
     <?php
     if (isset($error)) {
-        echo "<div class='alert alert-danger mt-5 mx-5 w-50 d-flex justify-content-center'>" . $error . "</div>";
+        echo "<div class='alert alert-danger mt-5 mx-5 d-flex justify-content-center'>" . $error . "</div>";
     }
     ?>
 
