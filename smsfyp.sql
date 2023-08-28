@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 28, 2023 at 08:10 AM
+-- Generation Time: Aug 28, 2023 at 02:04 PM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -109,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `lecture` (
   `user_type` varchar(50) NOT NULL,
   `lecture_entrytime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=42 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `lecture`
@@ -146,19 +146,8 @@ INSERT INTO `lecture` (`lecture_id`, `lecture_firstname`, `lecture_lastname`, `l
 (28, 'Victoria', 'Reed', '55deb7fd23a25aa863fb912ff7fc21d8', 'victoriareed@gmail.com', '1234567827', 'female', 'lecture', '2023-06-15 05:16:56'),
 (29, 'Daniel', 'Baker', '55deb7fd23a25aa863fb912ff7fc21d8', 'danielbaker@gmail.com', '1234567828', 'male', 'lecture', '2023-06-15 05:16:56'),
 (30, 'Elizabeth', 'Ross', '55deb7fd23a25aa863fb912ff7fc21d8', 'elizabethross@gmail.com', '1234567829', 'female', 'lecture', '2023-06-15 05:16:56'),
-(31, 'Christopher', 'Young', '55deb7fd23a25aa863fb912ff7fc21d8', 'christopheryoung@gmail.com', '1234567830', 'male', 'lecture', '2023-06-15 05:16:56');
-
---
--- Triggers `lecture`
---
-DROP TRIGGER IF EXISTS `lecture_insert_trigger`;
-DELIMITER $$
-CREATE TRIGGER `lecture_insert_trigger` AFTER INSERT ON `lecture` FOR EACH ROW BEGIN
-  INSERT INTO login (email, password, role, lecture_id)
-  VALUES (NEW.lecture_email, NEW.lecture_password, 'lecture', NEW.lecture_id);
-END
-$$
-DELIMITER ;
+(31, 'Christopher', 'Young', '55deb7fd23a25aa863fb912ff7fc21d8', 'christopheryoung@gmail.com', '1234567830', 'male', 'lecture', '2023-06-15 05:16:56'),
+(41, 'kobe', 'bryant', 'a2c8fd0b5e739b537dde8ec1f5bdbd32', 'kobe@gmail.com', '012-2233223', 'male', 'lecture', '2023-08-28 13:57:12');
 
 -- --------------------------------------------------------
 
@@ -177,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   PRIMARY KEY (`login_id`),
   KEY `student_id` (`student_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=83 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `login`
@@ -248,7 +237,9 @@ INSERT INTO `login` (`login_id`, `email`, `password`, `role`, `student_id`, `lec
 (63, 'danielbaker@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 29),
 (64, 'elizabethross@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 30),
 (65, 'christopheryoung@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 31),
-(0, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin', NULL, NULL);
+(0, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin', NULL, NULL),
+(80, 'kobe@gmail.com', 'a2c8fd0b5e739b537dde8ec1f5bdbd32', 'lecture', NULL, 41),
+(82, 'gigi@gmail.com', 'd91ec1d45535ebf3d8f6882217d10676', 'student', 44, NULL);
 
 -- --------------------------------------------------------
 
@@ -269,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `user_type` varchar(50) NOT NULL,
   `student_entrytime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`student_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
@@ -307,19 +298,8 @@ INSERT INTO `student` (`student_id`, `student_firstname`, `student_lastname`, `s
 (32, 'Victoria', 'Reed', 'ae1c6a778347ad3a62c82a44b785cffe', 'victoriareed@gmail.com', '1234567827', 'female', '2002-03-01', 'student', '2023-06-15 05:50:38'),
 (33, 'Daniel', 'Baker', 'd7a5b8bcb37838d43e11ed8c1e09c51b', 'danielbaker@gmail.com', '1234567828', 'male', '2002-04-01', 'student', '2023-06-15 05:50:38'),
 (34, 'Elizabeth', 'Ross', 'baae88f95fd94f89d4e55f87b7f8b4ff', 'elizabethross@gmail.com', '1234567829', 'female', '2002-05-01', 'student', '2023-06-15 05:50:38'),
-(35, 'Christopher', 'Young', '722dbdbcdb464911233308733930b2fb', 'christopheryoung@gmail.com', '1234567830', 'male', '2002-06-01', 'student', '2023-06-15 05:50:38');
-
---
--- Triggers `student`
---
-DROP TRIGGER IF EXISTS `student_insert_trigger`;
-DELIMITER $$
-CREATE TRIGGER `student_insert_trigger` AFTER INSERT ON `student` FOR EACH ROW BEGIN
-  INSERT INTO login (email, password, role, student_id)
-  VALUES (NEW.student_email, NEW.student_password, 'student', NEW.student_id);
-END
-$$
-DELIMITER ;
+(35, 'Christopher', 'Young', '722dbdbcdb464911233308733930b2fb', 'christopheryoung@gmail.com', '1234567830', 'male', '2002-06-01', 'student', '2023-06-15 05:50:38'),
+(44, 'gi', 'gi', 'd91ec1d45535ebf3d8f6882217d10676', 'gigi@gmail.com', '017-6587123', 'female', '1999-11-11', 'student', '2023-08-28 14:02:54');
 
 -- --------------------------------------------------------
 

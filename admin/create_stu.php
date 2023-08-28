@@ -78,28 +78,49 @@ include '../check.php';
 
                     include '../config/database.php';
                     try {
-                        // insert query
-                        $query = "INSERT INTO student SET student_firstname=:student_firstname, student_lastname=:student_lastname, student_password=:student_password, student_email=:student_email, student_phone=:student_phone, student_gender=:student_gender, date_of_birth=:date_of_birth, user_type=:user_type";
-                        // prepare query for execution
-                        $stmt = $con->prepare($query);
-                        // bind the parameters
-                        $stmt->bindParam(':student_firstname', $student_firstname);
-                        $stmt->bindParam(':student_lastname', $student_lastname);
-                        $stmt->bindParam(':student_password', $student_password);
-                        $stmt->bindParam(':student_email', $student_email);
-                        $stmt->bindParam(':student_phone', $student_phone);
-                        $stmt->bindParam(':student_gender', $student_gender);
-                        $stmt->bindParam(':date_of_birth', $date_of_birth);
+                        // Insert into student table
+                        $student_query = "INSERT INTO student SET student_firstname=:student_firstname, student_lastname=:student_lastname, student_password=:student_password, student_email=:student_email, student_phone=:student_phone, student_gender=:student_gender, date_of_birth=:date_of_birth, user_type=:user_type";
+                        $student_stmt = $con->prepare($student_query);
+                    
+                        // Bind the parameters for the student table
+                        $student_stmt->bindParam(':student_firstname', $student_firstname);
+                        $student_stmt->bindParam(':student_lastname', $student_lastname);
+                        $student_stmt->bindParam(':student_password', $student_password);
+                        $student_stmt->bindParam(':student_email', $student_email);
+                        $student_stmt->bindParam(':student_phone', $student_phone);
+                        $student_stmt->bindParam(':student_gender', $student_gender);
+                        $student_stmt->bindParam(':date_of_birth', $date_of_birth);
                         $user_type = "student";
-                        $stmt->bindParam(':user_type', $user_type);
-                        // Execute the query
-                        if ($stmt->execute()) {
+                        $student_stmt->bindParam(':user_type', $user_type);
+                    
+                        // Execute the student query
+                        $student_result = $student_stmt->execute();
+                    
+                        // Get the last inserted ID from the student table
+                        $student_id = $con->lastInsertId();
+                    
+                        // Insert into login table
+                        $login_query = "INSERT INTO login (email, password, role, student_id) VALUES (:student_email, :student_password, 'student', :student_id)";
+                        $login_stmt = $con->prepare($login_query);
+                    
+                        // Bind the parameters for the login table
+                        $login_stmt->bindParam(':student_email', $student_email);
+                        $login_stmt->bindParam(':student_password', $student_password);
+                        $login_stmt->bindParam(':student_id', $student_id);
+                    
+                        // Execute the login query
+                        $login_result = $login_stmt->execute();
+                    
+                        // Check if both queries executed successfully
+                        if ($student_result && $login_result) {
                             header("Location: student_read.php?update={save}");
                         } else {
                             echo "<div class='alert alert-danger'>Unable to save record.</div>";
                         }
+                    } catch (PDOException $exception) {
+                        die('ERROR: ' . $exception->getMessage());
                     }
-
+                    
                     // show error
                     catch (PDOException $exception) {
                         die('ERROR: ' . $exception->getMessage());

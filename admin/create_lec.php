@@ -65,27 +65,50 @@ include '../check.php';
                 } else {
 
                     include '../config/database.php';
+
                     try {
-                        // insert query
-                        $query = "INSERT INTO lecture SET lecture_firstname=:lecture_firstname, lecture_lastname=:lecture_lastname, lecture_password=:lecture_password, lecture_email=:lecture_email, lecture_phone=:lecture_phone, lecture_gender=:lecture_gender, user_type=:user_type";
-                        // prepare query for execution
-                        $stmt = $con->prepare($query);
-                        // bind the parameters
-                        $stmt->bindParam(':lecture_firstname', $lecture_firstname);
-                        $stmt->bindParam(':lecture_lastname', $lecture_lastname);
-                        $stmt->bindParam(':lecture_password', $lecture_password);
-                        $stmt->bindParam(':lecture_email', $lecture_email);
-                        $stmt->bindParam(':lecture_phone', $lecture_phone);
-                        $stmt->bindParam(':lecture_gender', $lecture_gender);
+                        // Insert into lecture table
+                        $lecture_query = "INSERT INTO lecture SET lecture_firstname=:lecture_firstname, lecture_lastname=:lecture_lastname, lecture_password=:lecture_password, lecture_email=:lecture_email, lecture_phone=:lecture_phone, lecture_gender=:lecture_gender, user_type=:user_type";
+                        $lecture_stmt = $con->prepare($lecture_query);
+                    
+                        // Bind the parameters for the lecture table
+                        $lecture_stmt->bindParam(':lecture_firstname', $lecture_firstname);
+                        $lecture_stmt->bindParam(':lecture_lastname', $lecture_lastname);
+                        $lecture_stmt->bindParam(':lecture_password', $lecture_password);
+                        $lecture_stmt->bindParam(':lecture_email', $lecture_email);
+                        $lecture_stmt->bindParam(':lecture_phone', $lecture_phone);
+                        $lecture_stmt->bindParam(':lecture_gender', $lecture_gender);
                         $user_type = "lecture";
-                        $stmt->bindParam(':user_type', $user_type);
-                        // Execute the query
-                        if ($stmt->execute()) {
+                        $lecture_stmt->bindParam(':user_type', $user_type);
+                    
+                        // Execute the lecture query
+                        $lecture_result = $lecture_stmt->execute();
+                    
+                        // Get the last inserted ID from the lecture table
+                        $lecture_id = $con->lastInsertId();
+                    
+                        // Insert into login table
+                        $login_query = "INSERT INTO login (email, password, role, lecture_id) VALUES (:lecture_email, :lecture_password, 'lecture', :lecture_id)";
+                        $login_stmt = $con->prepare($login_query);
+                    
+                        // Bind the parameters for the login table
+                        $login_stmt->bindParam(':lecture_email', $lecture_email);
+                        $login_stmt->bindParam(':lecture_password', $lecture_password);
+                        $login_stmt->bindParam(':lecture_id', $lecture_id);
+                    
+                        // Execute the login query
+                        $login_result = $login_stmt->execute();
+                    
+                        // Check if both queries executed successfully
+                        if ($lecture_result && $login_result) {
                             header("Location: lecture_read.php?update={save}");
                         } else {
                             echo "<div class='alert alert-danger'>Unable to save record.</div>";
                         }
+                    } catch (PDOException $exception) {
+                        die('ERROR: ' . $exception->getMessage());
                     }
+                    
 
                     // show error
                     catch (PDOException $exception) {
