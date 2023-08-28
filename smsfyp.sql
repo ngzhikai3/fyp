@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Aug 10, 2023 at 10:45 AM
+-- Generation Time: Aug 28, 2023 at 08:10 AM
 -- Server version: 5.7.36
 -- PHP Version: 7.4.26
 
@@ -34,7 +34,7 @@ CREATE TABLE IF NOT EXISTS `course` (
   `lecture_id` int(255) DEFAULT NULL,
   PRIMARY KEY (`course_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=59 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `course`
@@ -88,7 +88,8 @@ INSERT INTO `course` (`course_id`, `course_name`, `lecture_id`) VALUES
 (45, 'Advance Chinese Language', 6),
 (47, 'NBA', 1),
 (52, 'Swimming', 1),
-(53, 'FYP', 1);
+(53, 'FYP', 1),
+(58, 'Software Requirements Engineering', 1);
 
 -- --------------------------------------------------------
 
@@ -108,7 +109,7 @@ CREATE TABLE IF NOT EXISTS `lecture` (
   `user_type` varchar(50) NOT NULL,
   `lecture_entrytime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `lecture`
@@ -147,6 +148,18 @@ INSERT INTO `lecture` (`lecture_id`, `lecture_firstname`, `lecture_lastname`, `l
 (30, 'Elizabeth', 'Ross', '55deb7fd23a25aa863fb912ff7fc21d8', 'elizabethross@gmail.com', '1234567829', 'female', 'lecture', '2023-06-15 05:16:56'),
 (31, 'Christopher', 'Young', '55deb7fd23a25aa863fb912ff7fc21d8', 'christopheryoung@gmail.com', '1234567830', 'male', 'lecture', '2023-06-15 05:16:56');
 
+--
+-- Triggers `lecture`
+--
+DROP TRIGGER IF EXISTS `lecture_insert_trigger`;
+DELIMITER $$
+CREATE TRIGGER `lecture_insert_trigger` AFTER INSERT ON `lecture` FOR EACH ROW BEGIN
+  INSERT INTO login (email, password, role, lecture_id)
+  VALUES (NEW.lecture_email, NEW.lecture_password, 'lecture', NEW.lecture_id);
+END
+$$
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
@@ -164,7 +177,7 @@ CREATE TABLE IF NOT EXISTS `login` (
   PRIMARY KEY (`login_id`),
   KEY `student_id` (`student_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=70 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=80 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `login`
@@ -235,8 +248,7 @@ INSERT INTO `login` (`login_id`, `email`, `password`, `role`, `student_id`, `lec
 (63, 'danielbaker@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 29),
 (64, 'elizabethross@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 30),
 (65, 'christopheryoung@gmail.com', '55deb7fd23a25aa863fb912ff7fc21d8', 'lecture', NULL, 31),
-(0, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin', NULL, NULL),
-(69, 'hallo@gmail.com', '10b43971a8295f3720f38fbcdd9d6ac6', 'student', 37, NULL);
+(0, 'admin@gmail.com', '0192023a7bbd73250516f069df18b500', 'admin', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -257,7 +269,7 @@ CREATE TABLE IF NOT EXISTS `student` (
   `user_type` varchar(50) NOT NULL,
   `student_entrytime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`student_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
@@ -295,8 +307,7 @@ INSERT INTO `student` (`student_id`, `student_firstname`, `student_lastname`, `s
 (32, 'Victoria', 'Reed', 'ae1c6a778347ad3a62c82a44b785cffe', 'victoriareed@gmail.com', '1234567827', 'female', '2002-03-01', 'student', '2023-06-15 05:50:38'),
 (33, 'Daniel', 'Baker', 'd7a5b8bcb37838d43e11ed8c1e09c51b', 'danielbaker@gmail.com', '1234567828', 'male', '2002-04-01', 'student', '2023-06-15 05:50:38'),
 (34, 'Elizabeth', 'Ross', 'baae88f95fd94f89d4e55f87b7f8b4ff', 'elizabethross@gmail.com', '1234567829', 'female', '2002-05-01', 'student', '2023-06-15 05:50:38'),
-(35, 'Christopher', 'Young', '722dbdbcdb464911233308733930b2fb', 'christopheryoung@gmail.com', '1234567830', 'male', '2002-06-01', 'student', '2023-06-15 05:50:38'),
-(37, 'hallo', 'hi', '10b43971a8295f3720f38fbcdd9d6ac6', 'hallo@gmail.com', '0122323332', 'male', '1999-11-11', 'student', '2023-06-21 11:16:18');
+(35, 'Christopher', 'Young', '722dbdbcdb464911233308733930b2fb', 'christopheryoung@gmail.com', '1234567830', 'male', '2002-06-01', 'student', '2023-06-15 05:50:38');
 
 --
 -- Triggers `student`
@@ -328,7 +339,7 @@ CREATE TABLE IF NOT EXISTS `student_course` (
   KEY `student_id` (`student_id`),
   KEY `course_id` (`course_id`),
   KEY `lecture_id` (`lecture_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student_course`
@@ -340,12 +351,30 @@ INSERT INTO `student_course` (`student_course_id`, `student_id`, `course_id`, `l
 (3, 1, 6, 6, NULL, '2023-06-18 12:44:19'),
 (4, 1, 1, 1, 'B', '2023-06-18 15:13:57'),
 (5, 1, 21, 21, NULL, '2023-06-21 11:11:07'),
-(10, 1, 40, 1, 'A', '2023-07-07 07:35:33'),
-(9, 37, 34, 1, 'F', '2023-06-21 11:17:08'),
+(10, 1, 40, 1, 'B', '2023-07-07 07:35:33'),
+(9, 37, 34, 1, 'B', '2023-06-21 11:17:08'),
 (11, 1, 34, 1, 'B', '2023-07-07 07:35:42'),
 (12, 1, 16, 16, NULL, '2023-07-22 10:34:03'),
 (13, 1, 52, 1, 'A+', '2023-07-24 14:38:42'),
-(14, 1, 53, 1, NULL, '2023-08-01 14:07:57');
+(14, 1, 53, 1, 'B+', '2023-08-01 14:07:57'),
+(15, 5, 1, 1, 'A+', '2023-08-13 10:36:15'),
+(16, 6, 1, 1, 'B+', '2023-08-13 10:36:15'),
+(17, 7, 1, 1, 'C+', '2023-08-13 10:36:15'),
+(18, 8, 1, 1, 'C-', '2023-08-13 10:36:15'),
+(19, 9, 1, 1, 'F', '2023-08-13 10:36:15'),
+(20, 5, 1, 1, 'A+', '2023-08-13 10:36:18'),
+(21, 6, 1, 1, 'B+', '2023-08-13 10:36:18'),
+(22, 7, 1, 1, 'C+', '2023-08-13 10:36:18'),
+(23, 8, 1, 1, 'C-', '2023-08-13 10:36:18'),
+(24, 9, 1, 1, 'F', '2023-08-13 10:36:18'),
+(25, 1, 2, 2, NULL, '2023-08-13 10:45:42'),
+(26, 4, 53, 1, NULL, '2023-08-21 13:47:48'),
+(27, 5, 53, 1, 'A+', '2023-08-21 13:47:48'),
+(28, 4, 53, 1, NULL, '2023-08-21 13:47:50'),
+(29, 5, 53, 1, 'A+', '2023-08-21 13:47:50'),
+(35, 41, 1, 1, NULL, '2023-08-25 01:05:31'),
+(36, 41, 34, 1, NULL, '2023-08-25 01:05:36'),
+(37, 41, 47, 1, NULL, '2023-08-25 01:05:41');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
