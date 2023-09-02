@@ -22,12 +22,39 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'admin_topnav.php'; 
+        <?php include 'admin_topnav.php';
         ?>
 
         <div class="container my-3 py-2">
+            <?php
+            if (isset($_GET['empty'])) {
+                echo "<div class='alert alert-danger'>Please upload an Excel File.</div>";
+            }
+            if (isset($_GET['invalid_format'])) {
+                echo "<div class='alert alert-danger'>The uploaded Excel file has an invalid format. Please upload a file with the correct format.</div>";
+            }
+            ?>
             <div class="page-header text-center">
                 <h1>Create Lecture Profile</h1>
+            </div>
+
+            <!-- Excel file upload form -->
+            <div class="col-md-12">
+                <div class="">
+                    <a href="javascript:void(0);" class="btn btn-primary mb-3 text-white" onclick="formToggle('importFrm');"><i class="fa-solid fa-file-circle-plus"></i></a>
+                </div>
+            </div>
+
+            <div class="col" id="importFrm" style="display: none;">
+                <form class="row g-3" action="import_LecData.php" method="post" enctype="multipart/form-data">
+                    <div class="col-auto">
+                        <label for="fileInput" class="visually-hidden">File</label>
+                        <input type="file" class="form-control" name="file" id="fileInput" />
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-success mb-3" name="importSubmit" value="Upload">
+                    </div>
+                </form>
             </div>
 
             <?php
@@ -70,7 +97,7 @@ include '../check.php';
                         // Insert into lecture table
                         $lecture_query = "INSERT INTO lecture SET lecture_firstname=:lecture_firstname, lecture_lastname=:lecture_lastname, lecture_password=:lecture_password, lecture_email=:lecture_email, lecture_phone=:lecture_phone, lecture_gender=:lecture_gender, user_type=:user_type";
                         $lecture_stmt = $con->prepare($lecture_query);
-                    
+
                         // Bind the parameters for the lecture table
                         $lecture_stmt->bindParam(':lecture_firstname', $lecture_firstname);
                         $lecture_stmt->bindParam(':lecture_lastname', $lecture_lastname);
@@ -80,25 +107,25 @@ include '../check.php';
                         $lecture_stmt->bindParam(':lecture_gender', $lecture_gender);
                         $user_type = "lecture";
                         $lecture_stmt->bindParam(':user_type', $user_type);
-                    
+
                         // Execute the lecture query
                         $lecture_result = $lecture_stmt->execute();
-                    
+
                         // Get the last inserted ID from the lecture table
                         $lecture_id = $con->lastInsertId();
-                    
+
                         // Insert into login table
                         $login_query = "INSERT INTO login (email, password, role, lecture_id) VALUES (:lecture_email, :lecture_password, 'lecture', :lecture_id)";
                         $login_stmt = $con->prepare($login_query);
-                    
+
                         // Bind the parameters for the login table
                         $login_stmt->bindParam(':lecture_email', $lecture_email);
                         $login_stmt->bindParam(':lecture_password', $lecture_password);
                         $login_stmt->bindParam(':lecture_id', $lecture_id);
-                    
+
                         // Execute the login query
                         $login_result = $login_stmt->execute();
-                    
+
                         // Check if both queries executed successfully
                         if ($lecture_result && $login_result) {
                             header("Location: lecture_read.php?update={save}");
@@ -108,7 +135,7 @@ include '../check.php';
                     } catch (PDOException $exception) {
                         die('ERROR: ' . $exception->getMessage());
                     }
-                    
+
 
                     // show error
                     catch (PDOException $exception) {
@@ -137,7 +164,7 @@ include '../check.php';
                         <td class="text-center col-3">Email</td>
                         <td><input type='email' name='lecture_email' value='<?php echo $lecture_email ?>' class='form-control' /></td>
                         <td class="text-center col-3">Phone number</td>
-                        <td><input type='tel' name='lecture_phone' value='<?php echo $lecture_phone ?>' class='form-control' pattern="[0-9]{3}-[0-9]{7-8}"/></td>
+                        <td><input type='tel' name='lecture_phone' value='<?php echo $lecture_phone ?>' class='form-control' pattern="[0-9]{3}-[0-9]{7-8}" /></td>
                     </tr>
                     <tr>
                         <td class="text-center">Gender</td>
@@ -172,6 +199,17 @@ include '../check.php';
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script>
+        function formToggle(ID) {
+            var element = document.getElementById(ID);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 

@@ -22,12 +22,39 @@ include '../check.php';
 
     <div class="container-fluid px-0">
 
-        <?php include 'admin_topnav.php'; 
+        <?php include 'admin_topnav.php';
         ?>
 
         <div class="container my-3 py-2">
+            <?php
+            if (isset($_GET['empty'])) {
+                echo "<div class='alert alert-danger'>Please upload an Excel File.</div>";
+            }
+            if (isset($_GET['invalid_format'])) {
+                echo "<div class='alert alert-danger'>The uploaded Excel file has an invalid format. Please upload a file with the correct format.</div>";
+            }
+            ?>
             <div class="page-header text-center">
                 <h1>Create Student Profile</h1>
+            </div>
+
+            <!-- Excel file upload form -->
+            <div class="col-md-12">
+                <div class="">
+                    <a href="javascript:void(0);" class="btn btn-primary mb-3 text-white" onclick="formToggle('importFrm');"><i class="fa-solid fa-file-circle-plus"></i></a>
+                </div>
+            </div>
+
+            <div class="col" id="importFrm" style="display: none;">
+                <form class="row g-3" action="import_StuData.php" method="post" enctype="multipart/form-data">
+                    <div class="col-auto">
+                        <label for="fileInput" class="visually-hidden">File</label>
+                        <input type="file" class="form-control" name="file" id="fileInput" />
+                    </div>
+                    <div class="col-auto">
+                        <input type="submit" class="btn btn-success mb-3" name="importSubmit" value="Upload">
+                    </div>
+                </form>
             </div>
 
             <?php
@@ -81,7 +108,7 @@ include '../check.php';
                         // Insert into student table
                         $student_query = "INSERT INTO student SET student_firstname=:student_firstname, student_lastname=:student_lastname, student_password=:student_password, student_email=:student_email, student_phone=:student_phone, student_gender=:student_gender, date_of_birth=:date_of_birth, user_type=:user_type";
                         $student_stmt = $con->prepare($student_query);
-                    
+
                         // Bind the parameters for the student table
                         $student_stmt->bindParam(':student_firstname', $student_firstname);
                         $student_stmt->bindParam(':student_lastname', $student_lastname);
@@ -92,25 +119,25 @@ include '../check.php';
                         $student_stmt->bindParam(':date_of_birth', $date_of_birth);
                         $user_type = "student";
                         $student_stmt->bindParam(':user_type', $user_type);
-                    
+
                         // Execute the student query
                         $student_result = $student_stmt->execute();
-                    
+
                         // Get the last inserted ID from the student table
                         $student_id = $con->lastInsertId();
-                    
+
                         // Insert into login table
                         $login_query = "INSERT INTO login (email, password, role, student_id) VALUES (:student_email, :student_password, 'student', :student_id)";
                         $login_stmt = $con->prepare($login_query);
-                    
+
                         // Bind the parameters for the login table
                         $login_stmt->bindParam(':student_email', $student_email);
                         $login_stmt->bindParam(':student_password', $student_password);
                         $login_stmt->bindParam(':student_id', $student_id);
-                    
+
                         // Execute the login query
                         $login_result = $login_stmt->execute();
-                    
+
                         // Check if both queries executed successfully
                         if ($student_result && $login_result) {
                             header("Location: student_read.php?update={save}");
@@ -120,7 +147,7 @@ include '../check.php';
                     } catch (PDOException $exception) {
                         die('ERROR: ' . $exception->getMessage());
                     }
-                    
+
                     // show error
                     catch (PDOException $exception) {
                         die('ERROR: ' . $exception->getMessage());
@@ -148,7 +175,7 @@ include '../check.php';
                         <td class="text-center col-3">Email</td>
                         <td><input type='email' name='student_email' value='<?php echo $student_email ?>' class='form-control' /></td>
                         <td class="text-center col-3">Phone number</td>
-                        <td><input type='tel' name='student_phone' value='<?php echo $student_phone ?>' class='form-control' pattern="[0-9]{3}-[0-9]{7-8}"/></td>
+                        <td><input type='tel' name='student_phone' value='<?php echo $student_phone ?>' class='form-control' pattern="[0-9]{3}-[0-9]{7-8}" /></td>
                     </tr>
                     <tr>
                         <td class="text-center col-3">Gender</td>
@@ -167,7 +194,7 @@ include '../check.php';
                             </div>
                         </td>
                         <td class="text-center col-3">Date Of Birth</td>
-                        <td><input type='date' name='date_of_birth' value='<?php echo $date_of_birth ?>' class='form-control'/></td>
+                        <td><input type='date' name='date_of_birth' value='<?php echo $date_of_birth ?>' class='form-control' /></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -185,6 +212,17 @@ include '../check.php';
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+
+    <script>
+        function formToggle(ID) {
+            var element = document.getElementById(ID);
+            if (element.style.display === "none") {
+                element.style.display = "block";
+            } else {
+                element.style.display = "none";
+            }
+        }
+    </script>
 
 </body>
 

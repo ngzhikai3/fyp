@@ -48,7 +48,7 @@ include '../check.php';
             // read current record's data
             try {
                 // prepare select query
-                $query = "SELECT * FROM course WHERE course_id = ? LIMIT 0,1";
+                $query = "SELECT * FROM course INNER JOIN lecture ON course.lecture_id = lecture.lecture_id  WHERE course.course_id = ? LIMIT 0,1";//INNER JOIN file ON course.course_id = file.course_id
                 $stmt = $con->prepare($query);
 
                 // this is the first question mark
@@ -62,6 +62,9 @@ include '../check.php';
 
                 // values to fill up our form
                 $course_name = $row['course_name'];
+                $lecture_firstname = $row['lecture_firstname'];
+                $lecture_lastname = $row['lecture_lastname'];
+                //$file_name = $row['file_name'];
             }
 
             // show error
@@ -74,10 +77,46 @@ include '../check.php';
             // check if form was submitted
             if ($_POST) {
                 $course_name = $_POST['course_name'];
+                $file_name = $row['file_name'];
                 $error_message = "";
 
                 if ($course_name == "") {
                     $error_message .= "<div class='alert alert-danger'>Please enter course name</div>";
+                }
+
+                if ($file_name) {
+
+                    // upload to file to folder
+                    $target_directory = "note";
+                    $target_file = $target_directory . $file_name;
+                    $file_type = pathinfo($target_file, PATHINFO_EXTENSION);
+
+                    // make sure certain file types are allowed
+                    $allowed_file_types = array("docx", "pptx", "pdf");
+                    if (!in_array($file_type, $allowed_file_types)) {
+                        $error_message .= "<div class='alert alert-danger'>Only DOCX, PPTX, PDF files are allowed.</div>";
+                    }
+                    // make sure file does not exist
+                    if (file_exists($target_file)) {
+                        $error_message .= "<div class='alert alert-danger'>File already exists. Try to change file name.</div>";
+                    }
+                    // make sure submitted file is not too large, can't be larger than 1 MB
+                    if ($_FILES['file_name']['size'] > (524288000)) {
+                        $error_message .= "<div class='alert alert-danger'>Image must be less than 500 MB in size.</div>";
+                    }
+                    // make sure the 'note' folder exists
+                    // if not, create it
+                    if (!is_dir($target_directory)) {
+                        mkdir($target_directory, 0777, true);
+                    }
+                    // if $file_upload_error_messages is still empty
+                    if (empty($error_message)) {
+                        // it means there are no errors, so try to upload the file
+                        if (!move_uploaded_file($_FILES["file_name"]["tmp_name"], $target_file)) {
+                            $error_message .= "<div class='alert alert-danger>Unable to upload file.</div>";
+                            $error_message .= "<div class='alert alert-danger>Update the record to upload file.</div>";
+                        }
+                    }
                 }
 
                 if (!empty($error_message)) {
@@ -103,12 +142,14 @@ include '../check.php';
                             echo "<div class='alert alert-danger'>Unable to update record. Please try again.</div>";
                         }
                     }
+                    
                     // show errors
                     catch (PDOException $exception) {
                         die('ERROR: ' . $exception->getMessage());
                     }
                 }
             } ?>
+            
 
             <!--we have our html form here where new record information can be updated-->
             <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"] . "?course_id={$course_id}"); ?>" method="post" enctype="multipart/form-data">
@@ -117,6 +158,26 @@ include '../check.php';
                         <td class="text-center">Course Name</td>
                         <td><input type='text' name='course_name' value="<?php echo htmlspecialchars($course_name, ENT_QUOTES);  ?>" class='form-control' /></td>
                     </tr>
+                    <?php
+                    include '../config/database.php';
+                    echo "  <tr> 
+                        <td class='col-3 text-center'>Lecture</td>
+                        <td class='col-9'>
+                        <select class=\"form-select form-select\" aria-label=\".form-select example\" name=\"lecture_id\">
+                        <option value='Select Lecture' selected>$lecture_firstname $lecture_lastname</option>";
+                    $query = "SELECT * FROM lecture ORDER BY lecture_id DESC";
+                    $stmt = $con->prepare($query);
+                    $stmt->execute();
+                    $num = $stmt->rowCount();
+                    if ($num > 0) {
+                    } else {
+                        echo "<div class='alert alert-danger'>No records found.</div>";
+                    }
+                    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                        extract($row);
+                        echo "<option value=\"$lecture_id\">$lecture_firstname $lecture_lastname</option>";
+                    }
+                    ?>
                     <tr>
                         <td></td>
                         <td colspan="3" class="text-end">
